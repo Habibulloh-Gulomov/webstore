@@ -15,7 +15,7 @@ const Category = () => {
     "Sumkalar",
   ];
   return (
-    <div className="p-6">
+    <div className="p-6 text-black mt-12 pt-12">
     <h2 className="text-2xl font-bold mb-4">Mahsulotlar kategoriyasi</h2>
     <div className="flex space-x-4 overflow-x-auto scrollbar-hide">
       {categories.map((category, index) => (

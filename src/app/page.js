@@ -2,6 +2,7 @@ import Category from "@/components/Category";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
+import ProductList from "@/components/ProductList";
 import ProductPage from "@/components/Productpage";
 import Head from "next/head";
 export default function Home() {
@@ -50,14 +51,14 @@ export default function Home() {
 					content="width=device-width, initial-scale=1.0"
 				/>
         <link
-					rel="icon"
+					rel="icon"        
 					href="/images/logo.jpg"
 				/>
 			</Head>
-			<body className="text-black ">
+			<body>
 				<Header />
 				<Category />
-				<ProductCard />
+				<ProductList/>
 				<Footer />
 			</body>
 		</>

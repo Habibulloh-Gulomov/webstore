@@ -5,10 +5,10 @@ import logo from '../images/logo.svg'
 import Image from "next/image";
 const Header = () => {
 	return (
-		<div className="flex items-center justify-around border drop-shadow-sm ">
+		<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0">
 			<Image
 					src={logo}
-					width={150}
+					width={120}
 					height={50}
 					alt="about image "
 					className=""
@@ -30,18 +30,18 @@ const Header = () => {
 					width={23}
 					height={25}
 					alt="about image "
-					className="absolute bottom-2 left-4"
+					className="absolute bottom-3 left-4"
 				/>
 			</div>
 			<a
-				className=" p-2 border-l-2 pl-5"
+				className=" p-2 border-l-2 pl-5 "
 				href="/">
 				<Image
 					src={Likeicon}
-					width={33}
-					height={33}
+					width={40}
+					height={40}
 					alt="about image "
-					className=" border  rounded-full p-1"
+					className=" bg-gray-100 rounded-full p-2"
 				/>
 			</a>
 		</div>

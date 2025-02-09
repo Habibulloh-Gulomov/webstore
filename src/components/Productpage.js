@@ -1,7 +1,12 @@
+import Footer from "./Footer";
+import Header from "./Header";
+
 export default function ProductPage() {
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* Product Title */}
+    <div>
+    <Header/>
+    <div className="p-6 max-w-6xl mx-auto text-black">
+     <p>fggfdgdfg</p>
       <h1 className="text-2xl font-bold">Bvlgari Le Gemme - Tygar (30ml | 50ml)</h1>
 
       {/* Main Section */}
@@ -62,15 +67,14 @@ export default function ProductPage() {
       <div className="mt-8">
         <h2 className="text-xl font-semibold border-b pb-2">Mahsulot xususiyatlari</h2>
         <p className="mt-4 text-gray-600">
-          Ushbu atir erkaklar uchun maxsus yaratilgan bo'lib, unda greypfrutning yorqin sitrus 
-          notalari, ambroksanning chuqur boyligi va yog'ochli akkordlarning bardavom, qattiq 
-          qoplamasi bilan ajralib turadi.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum at delectus labore porro animi, dolor dolores. Voluptate magnam ut perferendis laboriosam error doloremque atque, enim, consectetur saepe assumenda commodi voluptates tempore nisi molestiae! Omnis voluptates ducimus ex. Doloribus doloremque alias assumenda voluptates ullam repellendus animi? Cumque adipisci provident doloremque illum!
         </p>
         <p className="mt-4 text-gray-600">
-          5 ml, 10 ml, 15 ml, 20 ml, 30 ml, 50 ml va 100 ml o'lchamdagi variantlar mavjud bo'lib, 
-          shaxsiy ehtiyojlaringizga mos keladigan hajmi tanlashingiz mumkin.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora accusantium deserunt quibusdam maiores vel reprehenderit error quis doloremque eaque ipsa molestiae earum iusto quidem accusamus placeat recusandae autem, necessitatibus a.
         </p>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 }

@@ -49,9 +49,68 @@ export default function ProductForm() {
       console.error("Error submitting form:", error);
     }
   };
+  const [inputValue, setInputValue] = useState('');
+  const [inputPass, setInputPass] = useState('');
+  const [isLogin, setisLogin] = useState(true);
 
+  const password = '12345678'
+  const login = '12345678'
+  const handlepost = (event) => {
+    console.log('Input Value:', inputValue);
+    console.log('Input Value:', inputPass);
+    if (password == inputPass && login == inputValue) {
+      setisLogin(!isLogin)
+    }
+    
+    // Here you can send the inputValue to your API or perform other actions
+  };
+
+  const handleLogin = (event) => {
+    setInputValue(event.target.value);
+  };
+  const handlePassword = (event) => {
+    setInputPass(event.target.value);
+  };
+
+  
   return (
     <>
+     { isLogin && (
+      <div className="fixed inset-0 flex items-center z-10 justify-center bg-gray-800 z-20 ">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative lg:w-2/5 md:w-full">
+            <h2 className="text-2xl font-bold mb-4 ">Login Page</h2>
+            <form onSubmit={handlepost} className="space-y-4">
+              <input 
+                type="text" 
+                name="login" 
+                placeholder="Login kiriting!"  
+                className="w-full p-2 border rounded" 
+                required
+                onChange={handleLogin}
+              />
+              
+              <input 
+                type="text" 
+                name="password" 
+                placeholder="kodni kiriting!!!" 
+                className="w-full p-2 border rounded" 
+                required
+                onChange={handlePassword}
+
+              />
+              <button 
+                type="submit" 
+                className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+     )}
+
+
+
       <div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0 z-10">
           <Image
               src={logo}

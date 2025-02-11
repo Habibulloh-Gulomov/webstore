@@ -59,6 +59,9 @@ export default function Home() {
 				<Header />
 				<Category />
 				<ProductList/>
+				<ProductList/>
+				<ProductList/>
+				<ProductList/>
 				<Footer />
 			</body>
 		</>

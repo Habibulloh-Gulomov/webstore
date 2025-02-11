@@ -5,7 +5,7 @@ import logo from '../images/logo.svg'
 import Image from "next/image";
 const Header = () => {
 	return (
-		<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0">
+		<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0 z-10">
 			<Image
 					src={logo}
 					width={120}

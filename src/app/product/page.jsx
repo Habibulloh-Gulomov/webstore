@@ -1,14 +1,26 @@
+'use client'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { useSearchParams } from 'next/navigation';
 
-export default function page() {
+export default function product() {
+  const searchParams = useSearchParams();
+
+  const name = searchParams.get('name');
+  const category = searchParams.get('category');
+  const price = searchParams.get('price');
+  const installment = searchParams.get('installment');
+  console.log(name);
+  console.log(category);
+  console.log(price);
+  
   return (
     
     <>
     <Header/>
     <div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
       {/* Product Title */}
-      <h1 className="text-2xl font-bold">Parfyum</h1>
+      <h1 className="text-2xl font-bold">{name}</h1>
 
       {/* Main Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
@@ -28,10 +40,10 @@ export default function page() {
         <div>
           {/* Price Section */}
           <div className="bg-gray-50 p-4 rounded-lg shadow">
-            <p className="text-gray-500 line-through">1.888 so'm</p>
-            <p className="text-3xl font-bold text-red-600">8888 so'm</p>
+            <p className="text-gray-500 line-through">{price}</p>
+            <p className="text-3xl font-bold text-red-600">{price}</p>
             <p className="text-gray-600 mt-2">Muddati to'lov:</p>
-            <p className="text-xl font-semibold">96.099 so'm</p>
+            <p className="text-xl font-semibold">{price} so'm</p>
           </div>
 
           {/* Installment Plan */}

@@ -2,20 +2,62 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import ProductCard from './ProductCard';
 
 const perfumes = [
-  'Bvlgari Le Gemme - Tygar',
-  'Tilia Marc-Antoine Barrois',
-  'With You Intensely',
-  'Tom Ford Lost Cherry',
-  'Symphony Louis Vuitton',
-  'Louis Vuitton Imagination',
-  'Chanel Bleu de Chanel',
-  'Dior Sauvage',
-  // ... more perfumes
+  {
+    name: 'Bvlgari Le Gemme - Tygar',
+    category: 'Luxury Parfum',
+    price: '1,200,000 so‘m',
+    installment: '100,000 so‘m x 12 oy',
+  },
+  {
+    name: 'Tilia Marc-Antoine Barrois',
+    category: 'Luxury Parfum',
+    price: '1,500,000 so‘m',
+    installment: '125,000 so‘m x 12 oy',
+  },
+  {
+    name: 'With You Intensely',
+    category: 'Premium Parfum',
+    price: '980,000 so‘m',
+    installment: '81,666 so‘m x 12 oy',
+  },
+  {
+    name: 'Tom Ford Lost Cherry',
+    category: 'Luxury Parfum',
+    price: '2,000,000 so‘m',
+    installment: '166,666 so‘m x 12 oy',
+  },
+  {
+    name: 'Symphony Louis Vuitton',
+    category: 'Designer Parfum',
+    price: '1,750,000 so‘m',
+    installment: '145,833 so‘m x 12 oy',
+  },
+  {
+    name: 'Louis Vuitton Imagination',
+    category: 'Designer Parfum',
+    price: '1,900,000 so‘m',
+    installment: '158,333 so‘m x 12 oy',
+  },
+  {
+    name: 'Chanel Bleu de Chanel',
+    category: 'Classic Parfum',
+    price: '1,100,000 so‘m',
+    installment: '91,666 so‘m x 12 oy',
+  },
+  {
+    name: 'Dior Sauvage',
+    category: 'Classic Parfum',
+    price: '1,250,000 so‘m',
+    installment: '104,166 so‘m x 12 oy',
+  },
 ];
 
 export default function ProductList() {
+  console.log(perfumes.name);
+  
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const carouselRef = useRef(null);
@@ -72,28 +114,13 @@ export default function ProductList() {
         )}
         <div ref={carouselRef} className={`flex overflow-x-auto scroll-smooth gap-6`} style={{ scrollSnapType: 'x mandatory' }}> {/* Carousel container */}
           {perfumes.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
-            <div key={index} className="bg-white border shadow-md rounded-xl p-4 w-64 snap-start shrink-0"> {/* Added shrink-0 and snap-start */}
-              {/* ... (rest of your item content) */}
-              <div className="flex justify-end">
-                <button className="text-gray-500 hover:text-gray-700">❤️</button>
-              </div>
-              <div className="flex justify-center">
-                <span className="w-40 h-40 bg-gray-200 rounded-lg"></span>
-              </div>
-              <span className="bg-gray-300 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full mt-2 inline-block">
-                Parfum
-              </span>
-              <h3 className="text-lg font-semibold mt-2 text-black">{item}</h3>
-              <p className="bg-gray-200 text-gray-700 text-sm font-medium px-3 py-1 rounded-lg mt-2 inline-block">
-                88.888 so'mdan 12 oy
-              </p>
-              <Link
-                href="/ProductPage"
-                className="bg-gray-700 text-white flex justify-center items-center w-full py-3 rounded-lg mt-3 hover:bg-gray-900 transition"
-              >
-                🛒 SOTIB OLISH
-              </Link>
-            </div>
+            <ProductCard 
+            key={index} 
+            name={item.name} 
+            category={item.category}
+            price={item.price}
+            installment={item.installment}
+          />
           ))}
         </div>
         {startIndex + itemsPerPage < perfumes.length && (

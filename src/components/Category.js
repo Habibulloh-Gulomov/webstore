@@ -1,5 +1,5 @@
 import React from 'react'
-
+import img from '../images/search.png'
 const Category = () => {
   const categories = [
     "Parfyum",
@@ -24,6 +24,7 @@ const Category = () => {
           className="flex items-center justify-center bg-gray-100 px-6 py-4 rounded-lg min-w-[150px] text-center font-medium "
         >
           {category}
+          <img src="" alt="" />
         </div>
       ))}
     </div>

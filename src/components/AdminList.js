@@ -4,7 +4,7 @@ import DeletedCard from './DeletedCard'
 const AdminList = () => {
   return (
     <>
-    <p className='text-3xl items-center font-bold text-center mt-12 pt-12 subpixel-antialiased'>Hamma Mahsulotlar</p>
+    <p className='text-3xl items-center font-bold text-center mt-12 pt-12 subpixel-antialiased justify -center'>Hamma Mahsulotlar</p>
     <div className='flex flex-wrap  gap-5 p-5'>
       <DeletedCard/>
       <DeletedCard/>

@@ -14,13 +14,9 @@ export default function product() {
   const price = searchParams.get('price');
   const installment = searchParams.get('installment');
   
-  console.log(name);
-  console.log(category);
-  console.log(price);
-  
   return (
     
-    <>
+    <div>
     <Header/>
   <Suspense>
       <div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
@@ -94,6 +90,6 @@ export default function product() {
     </div>
   </Suspense>
     <Footer/>
-    </>
+    </div>
   );
 }

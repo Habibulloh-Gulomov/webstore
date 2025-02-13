@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
 import ProductCard from './ProductCard';
 
 const perfumes = [
@@ -10,53 +9,60 @@ const perfumes = [
     category: 'Luxury Parfum',
     price: '1,200,000 so‘m',
     installment: '100,000 so‘m x 12 oy',
+    id: '1'
   },
   {
     name: 'Tilia Marc-Antoine Barrois',
     category: 'Luxury Parfum',
     price: '1,500,000 so‘m',
     installment: '125,000 so‘m x 12 oy',
+    id: '2'
   },
   {
     name: 'With You Intensely',
     category: 'Premium Parfum',
     price: '980,000 so‘m',
     installment: '81,666 so‘m x 12 oy',
+    id: '3'
   },
   {
     name: 'Tom Ford Lost Cherry',
     category: 'Luxury Parfum',
     price: '2,000,000 so‘m',
     installment: '166,666 so‘m x 12 oy',
+    id: '4'
   },
   {
     name: 'Symphony Louis Vuitton',
     category: 'Designer Parfum',
     price: '1,750,000 so‘m',
     installment: '145,833 so‘m x 12 oy',
+    id: '5'
   },
   {
     name: 'Louis Vuitton Imagination',
     category: 'Designer Parfum',
     price: '1,900,000 so‘m',
     installment: '158,333 so‘m x 12 oy',
+    id: '6'
   },
   {
     name: 'Chanel Bleu de Chanel',
     category: 'Classic Parfum',
     price: '1,100,000 so‘m',
     installment: '91,666 so‘m x 12 oy',
+    id: '7'
   },
   {
     name: 'Dior Sauvage',
     category: 'Classic Parfum',
     price: '1,250,000 so‘m',
     installment: '104,166 so‘m x 12 oy',
+    id: '8'
   },
 ];
 
 export default function ProductList() {
-  console.log(perfumes.name);
   
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -116,6 +122,7 @@ export default function ProductList() {
           {perfumes.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
             <ProductCard 
             key={index} 
+            id = {item.id}
             name={item.name} 
             category={item.category}
             price={item.price}

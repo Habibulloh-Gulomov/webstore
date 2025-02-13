@@ -122,14 +122,14 @@ export default function ProductForm() {
           />
         <div className="inline w-2/5 relative">
           <label
-            htmlForfor="search"
-            class=" hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            htmlforfor="search"
+            className=" hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">
             search input
           </label>
           <input
             type="text"
             id="search"
-            class="border text-black p-2 px-5 rounded-md w-full pl-12"
+            className="border text-black p-2 px-5 rounded-md w-full pl-12"
             placeholder="Mahsulotlarni qidirish..."
           />
           <Image

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-const ProductCard = ({ name, category, price, installment }) => {
-  // console.log(name);
+const ProductCard = ({ name, category, price, installment,id }) => {
+
   
   return (
     <div className="bg-white border shadow-md rounded-xl p-4 w-64">
@@ -27,8 +27,8 @@ const ProductCard = ({ name, category, price, installment }) => {
       </p>
       {/* Buy Link */}
       <Link  href={{
-        pathname: '/product',
-        query: { name: `${name}` , price : `${price}`, category: `${category}` },
+        pathname: '/product/',
+        query: { name: `${name}` , price : `${price}`, category: `${category}`, id: `${id}` },
       }} className="bg-gray-700 text-white flex justify-center items-center w-full py-3 rounded-lg mt-3 hover:bg-gray-900 transition">
         🛒 SOTIB OLISH
       </Link>

@@ -54,8 +54,9 @@ export default function Home() {
 					rel="icon"        
 					href="/images/logo.jpg"
 				/>
+				
 			</Head>
-			<body>
+			<div>
 				<Header />
 				<Category />
 				<ProductList/>
@@ -63,7 +64,7 @@ export default function Home() {
 				<ProductList/>
 				<ProductList/>
 				<Footer />
-			</body>
+			</div>
 		</>
 	);
 }

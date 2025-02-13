@@ -1,7 +1,10 @@
 'use client'
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react'
+
 
 export default function product() {
   const searchParams = useSearchParams();
@@ -10,6 +13,7 @@ export default function product() {
   const category = searchParams.get('category');
   const price = searchParams.get('price');
   const installment = searchParams.get('installment');
+  
   console.log(name);
   console.log(category);
   console.log(price);
@@ -18,7 +22,8 @@ export default function product() {
     
     <>
     <Header/>
-    <div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
+  <Suspense>
+      <div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
       {/* Product Title */}
       <h1 className="text-2xl font-bold">{name}</h1>
 
@@ -87,6 +92,7 @@ export default function product() {
         </p>
       </div>
     </div>
+  </Suspense>
     <Footer/>
     </>
   );

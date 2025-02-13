@@ -1,17 +1,19 @@
 import React from "react";
-import Likeicon from "../images/heart.png";
-import searchicon from "../images/search.png";
-import logo from '../images/logo.svg'
+import Like from "../images/heart.png";
+import Search from "../images/search.png";
+import Logo from "../images/logo.svg";
 import Image from "next/image";
 const Header = () => {
 	return (
 		<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0 z-10">
 			<Image
-					src={logo}
-					width={120}
-					height={50}
-					alt="about image "
-				/>
+				src={Logo}
+				width={120}
+				height={50}
+				alt="about image "
+				className="h-auto"
+				priority={true}
+			/>
 			<div className="inline w-2/5 relative">
 				<label
 					htmlforfor="search"
@@ -25,22 +27,22 @@ const Header = () => {
 					placeholder="Mahsulotlarni qidirish..."
 				/>
 				<Image
-					src={searchicon}
+					src={Search}
 					width={23}
 					height={25}
 					alt="about image "
-					className="absolute bottom-3 left-4 h-auto"
+					className="absolute bottom-3 left-4 h-auto "
 				/>
 			</div>
 			<a
 				className=" p-2 border-l-2 pl-5 "
 				href="/">
 				<Image
-					src={Likeicon}
+					src={Like}
 					width={40}
 					height={40}
 					alt="about image "
-					className=" bg-gray-100 rounded-full p-2 h-auto"
+					className=" bg-gray-100 rounded-full p-2 h-auto "
 				/>
 			</a>
 		</div>

@@ -1,9 +1,7 @@
 import Category from "@/components/Category";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import ProductCard from "@/components/ProductCard";
-import ProductList from "@/components/ProductList";
-import ProductPage from "@/components/Productpage";
+import ProductList from "@/components/ProductList"
 import Head from "next/head";
 export default function Home() {
 	return (
@@ -43,16 +41,12 @@ export default function Home() {
 				/>
 				<meta
 					property="og:url"
-					content="https://www.webstore.com"
+					content="https://www.thewebstore.uz"
 				/>
 				<meta charset="UTF-8" />
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1.0"
-				/>
-        <link
-					rel="icon"        
-					href="/images/logo.jpg"
 				/>
 				
 			</Head>

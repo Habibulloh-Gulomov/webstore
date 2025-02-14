@@ -1,17 +1,17 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+
 const page = () => {
-	// const searchParams = useSearchParams();
-	
-	// const name = searchParams.get("name");
-	// const category = searchParams.get('category');
-	// const price = searchParams.get("price");
-	// const installment = searchParams.get('installment');
-	// const id = searchParams.get('id');
-	// console.log(name, price);
+	const searchParams = useSearchParams();
+	const name = searchParams.get("name");
+	const category = searchParams.get('category');
+	const price = searchParams.get("price");
+	const installment = searchParams.get('installment');
+	const id = searchParams.get('id');
+	console.log(name, price);
 
 	return (
 		<div>

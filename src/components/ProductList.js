@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import ProductCard from './ProductCard';
-
+import axios from 'axios';
 const perfumes = [
   {
     name: 'Bvlgari Le Gemme - Tygar',
@@ -111,6 +111,22 @@ export default function ProductList() {
   };
 
 
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://thewebstorenode.uz.thewebstore.uz/posts')
+      .then(response => {
+        setData(response.data.data);
+  console.log(response.data);
+      })
+      .catch(error => {
+        setError(error.message);
+      });
+  }, []);
+
+  
+
   return (
     <div className="w-full p-5 text-black">
       <h2 className="text-3xl font-bold mb-4">Parfyum</h2>
@@ -119,14 +135,14 @@ export default function ProductList() {
           <button onClick={prevSlide} className="absolute left-0 z-10 bg-gray-300 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400">⬅</button>
         )}
         <div ref={carouselRef} className={`flex overflow-x-auto scroll-smooth gap-6`} style={{ scrollSnapType: 'x mandatory' }}> {/* Carousel container */}
-          {perfumes.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
+          {data.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
             <ProductCard 
             key={index} 
             id = {item.id}
-            name={item.name} 
+            name={item.product_name} 
             category={item.category}
-            price={item.price}
-            installment={item.installment}
+            price={item.product_cost}
+            installment={item.product_brand}
           />
           ))}
         </div>

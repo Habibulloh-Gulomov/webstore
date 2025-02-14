@@ -1,216 +1,243 @@
-"use client";
-import { useState, useEffect } from "react";
-import searchicon from "../images/search.png";
-import logo from "../images/logo.svg";
-import Image from "next/image";
+import { useState } from "react";
+import axios from "axios";
+import { League_Script } from "next/font/google";
 
-export default function ProductForm() {
-	const [formData, setFormData] = useState({
-		name: "",
-		description: "",
-		cost: "",
-		brand: "",
-	});
+export default function PostForm() {
+	const [title, setTitle] = useState("");
+	const [body, setBody] = useState("");
+	const [info, setInfo] = useState("");
+	const [brand, setBrand] = useState("");
+	const [monthly, setMonthly] = useState('');
+	const [yearly, setYearly] = useState('');
+	const [image, setImage] = useState([]);
+	const [cost, setCost] = useState('');
+	const [subcategory, setSubcategory] = useState("");
+
+	const [response, setResponse] = useState(null);
+	const [error, setError] = useState(null);
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	useEffect(() => {
-		if (isModalOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "auto";
-		}
-		return () => {
-			document.body.style.overflow = "auto";
-		};
-	}, [isModalOpen]);
-
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
-	};
+	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const [username, setLogin] = useState("");
+	const [password, setPassword] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const formData = new FormData();
+		for (const element of image) {
+			formData.append("postImg", element)
+		}
+		
+		formData.append("product_name", title);
+		formData.append("product_description", body);
+		formData.append("subcategory", subcategory);
+		formData.append("product_info", info);
+		formData.append("product_brand", brand);
+		formData.append("product_cost", cost);
+		formData.append("product_monthly_pay_month", monthly);
+		formData.append("product_monthly_pay_year", yearly);
+
 		try {
-			const response = await fetch("https://your-backend-api.com/products", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-			});
-			if (!response.ok) {
-				throw new Error("Failed to submit form");
+
+			const res = await axios.post(
+				"http://thewebstorenode.uz.thewebstore.uz/posts",
+				formData,
+				{
+					headers: {
+						token:
+							"eyJhbGciOiJIUzI1NiJ9.MQ.1tRPowLx-U0FAddHad0zerSPN41lydQhy7A-toLHzBo",
+					},
+				}
+			);
+
+      if (res.data.status == 201) {
+				setIsModalOpen(false)
+				alert("Mahsulot qo'shildi")
+				window.location.reload()
 			}
-			console.log("Form submitted successfully");
-			setIsModalOpen(false);
-		} catch (error) {
-			console.error("Error submitting form:", error);
+		} catch (err) {
+			setError("Muammo yuz berdi");
+			alert("Muammo yuz berdi")
+			window.location.reload()
+       
 		}
 	};
-	const [inputValue, setInputValue] = useState("");
-	const [inputPass, setInputPass] = useState("");
-	const [isLogin, setisLogin] = useState(true);
 
-	const password = "12345678";
-	const login = "12345678";
-	const handlepost = (event) => {
-		console.log("Input Value:", inputValue);
-		console.log("Input Value:", inputPass);
-		if (password == inputPass && login == inputValue) {
-			setisLogin(!isLogin);
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await axios.post(
+				"http://thewebstorenode.uz.thewebstore.uz/sign",
+				{
+					username,
+					password,
+				}
+			);
+			if (res.status === 200) {
+				setIsLoginOpen(false);
+				console.log(res.data.token);
+			} else {
+				setError("Invalid credentials");
+			}
+		} catch (err) {
+			setError("Login failed");
 		}
-
-		// Here you can send the inputValue to your API or perform other actions
-	};
-
-	const handleLogin = (event) => {
-		setInputValue(event.target.value);
-	};
-	const handlePassword = (event) => {
-		setInputPass(event.target.value);
 	};
 
 	return (
-		<>
-			{isLogin && (
-				<div className="fixed inset-0 flex items-center z-10 justify-center bg-gray-800 z-20 ">
-					<div className="bg-white p-6 rounded-lg shadow-lg relative lg:w-2/5 md:w-full">
-						<h2 className="text-2xl font-bold mb-4 ">Login Page</h2>
+		<div className="p-6 max-w-md mx-auto">
+			{isLoginOpen && (
+				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+					<div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
+						<h2 className="text-xl font-bold mb-4">Login</h2>
 						<form
-							onSubmit={handlepost}
-							className="space-y-4">
+							onSubmit={handleLogin}
+							className="mb-4">
 							<input
 								type="text"
-								name="login"
-								placeholder="Login kiriting!"
-								className="w-full p-2 border rounded"
+								value={username}
+								onChange={(e) => setLogin(e.target.value)}
+								placeholder="Username"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
-								onChange={handleLogin}
 							/>
-
 							<input
-								type="text"
-								name="password"
-								placeholder="kodni kiriting!!!"
-								className="w-full p-2 border rounded"
+								type="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								placeholder="Password"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
-								onChange={handlePassword}
 							/>
 							<button
 								type="submit"
-								className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-								Submit
+								className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+								Login
 							</button>
 						</form>
+						{error && (
+							<div className="p-4 border border-red-500 bg-red-100 rounded">
+								<p className="text-red-700">Error: {error}</p>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
 
-			{!isLogin && (
-				<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0 z-10">
-					<Image
-						src={logo}
-						width={120}
-						height={50}
-						alt="about image "
-						className="h-auto"
-					/>
-					<div className="inline w-2/5 relative">
-						<label
-							htmlforfor="search"
-							className=" hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">
-							search input
-						</label>
-						<input
-							type="text"
-							id="search"
-							className="border text-black p-2 px-5 rounded-md w-full pl-12"
-							placeholder="Mahsulotlarni qidirish..."
-						/>
-					</div>
-					<button
-						onClick={() => setIsModalOpen(true)}
-						className="bg-green-500 text-white px-4 py-2 rounded">
-						Yangi Mahsulot Qo'shish
-					</button>
-				</div>
+			{!isLoginOpen && (
+				<button
+					onClick={() => setIsModalOpen(true)}
+					className="px-4 py-2 mb-4 bg-green-600 text-white rounded hover:bg-green-700">
+					Open Form
+				</button>
 			)}
 
 			{isModalOpen && (
-				<div className="fixed inset-0 flex items-center z-10 justify-center bg-gray-800 bg-opacity-50 ">
-					<div className="bg-white p-6 rounded-lg shadow-lg relative lg:w-2/5 md:w-full">
+				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+					<div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
 						<button
 							onClick={() => setIsModalOpen(false)}
-							className="absolute top-2 right-3 text-3xl text-gray-500 hover:text-black">
+							className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-black">
 							×
 						</button>
-						<h2 className="text-2xl font-bold mb-4 ">
-							Mahsulot ma'lumotlarini kiriting
-						</h2>
+						<h1 className="text-xl font-bold mb-4">Create a New Product</h1>
 						<form
 							onSubmit={handleSubmit}
-							className="space-y-4">
+							className="mb-4">
 							<input
 								type="text"
-								name="name"
-								placeholder="Mahsulot Nomi"
-								value={formData.name}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
+								min={5}
+								placeholder="Title"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-
+							<input
+								type="text"
+								value={brand}
+								onChange={(e) => setBrand(e.target.value)}
+								placeholder="Title"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
+								required
+							/>
+							<input
+								type="text"
+								value={info}
+								onChange={(e) => setInfo(e.target.value)}
+								placeholder="Title"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
+								required
+							/>
 							<textarea
-								name="description"
-								placeholder="Mahsulot tavsifi"
-								value={formData.description}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
+								value={body}
+								onChange={(e) => setBody(e.target.value)}
+								placeholder="Body"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-
 							<input
 								type="number"
-								name="cost"
-								placeholder="Narx (so'm)"
-								value={formData.cost}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
+								value={cost}
+								onChange={(e) => setCost(e.target.value)}
+								placeholder="Cost"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-
+							<input
+								type="number"
+								value={monthly}
+								onChange={(e) => setMonthly(e.target.value)}
+								placeholder="Installment"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
+								required
+							/>
+							<input
+								type="number"
+								value={yearly}
+								onChange={(e) => setYearly(e.target.value)}
+								placeholder="Installment"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
+								required
+							/>
 							<input
 								type="text"
-								name="brand"
-								placeholder="Brand"
-								value={formData.brand}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
+								value={subcategory}
+								onChange={(e) => setSubcategory(e.target.value)}
+								placeholder="Installment"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-
 							<input
 								type="file"
-								name="image"
-								placeholder="Rasmlari 3tagcha"
-								value={formData.image}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
+								onChange={(e) => setImage(e.target.files)}
 								required
+								placeholder="1tadan ko'p bo'lsin va 4tadan kam bo'lsin"
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								multiple
-								max={3}
 							/>
-
 							<button
 								type="submit"
-								className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+								className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
 								Submit
 							</button>
 						</form>
+
+						{response && (
+							<div className="p-4 border border-green-500 bg-green-100 rounded">
+								<h2 className="font-semibold">Response:</h2>
+								<pre>{JSON.stringify(response, null, 2)}</pre>
+							</div>
+						)}
+
+						{error && (
+							<div className="p-4 border border-red-500 bg-red-100 rounded">
+								<p className="text-red-700">Error: {error}</p>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }

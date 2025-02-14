@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Suspense } from "react";
+import { useState , useEffect} from "react";
 
 const page = () => {
 	const searchParams = useSearchParams();
@@ -11,14 +12,127 @@ const page = () => {
 	const price = searchParams.get("price");
 	const installment = searchParams.get('installment');
 	const id = searchParams.get('id');
-	console.log(name, price);
 
+	const [formData, setFormData] = useState({
+		name: "",
+		description: "",
+		cost: "",
+		brand: "",
+	});
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await fetch("https://your-backend-api.com/products", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+			if (!response.ok) {
+				throw new Error("Failed to submit form");
+			}
+			console.log("Form submitted successfully");
+			setIsModalOpen(false);
+		} catch (error) {
+			console.error("Error submitting form:", error);
+		}
+	};
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
+	
+		useEffect(() => {
+			if (isModalOpen) {
+				document.body.style.overflow = "hidden";
+			} else {
+				document.body.style.overflow = "auto";
+			}
+			return () => {
+				document.body.style.overflow = "auto";
+			};
+		}, [isModalOpen]);
 	return (
 		<div>
+				{isModalOpen && (
+				<div className="fixed inset-0 flex items-center z-20 justify-center bg-gray-800 bg-opacity-50 ">
+					<div className="bg-white p-6 rounded-lg shadow-lg relative lg:w-1/3 md:w-full">
+						<button
+							onClick={() => setIsModalOpen(false)}
+							className="absolute top-2 right-3 text-3xl text-gray-500 hover:text-black">
+							×
+						</button>
+						<h2 className="text-2xl font-bold mb-4 text-black text-center ">
+							Form to'ldiring 
+						</h2>
+						<form
+							onSubmit={handleSubmit}
+							className="space-y-4">
+
+							<input
+							type="text"
+								name="tuman"
+								placeholder="tuman tanlang"
+								value={formData.description}
+								onChange={handleChange}
+								className="w-full p-2 border rounded"
+								required
+							/>
+
+							<input
+								type="text"
+								name="location"
+								placeholder="Viloyatni "
+								value={formData.cost}
+								onChange={handleChange}
+								className="w-full p-2 border rounded"
+								required
+							/>
+
+							<input
+								type="text"
+								name="brand"
+								placeholder="Ismingizni kiriting"
+								value={formData.brand}
+								onChange={handleChange}
+								className="w-full p-2 border rounded"
+								required
+							/>
+
+<input
+								type="text"
+								name="brand"
+								placeholder="Raqamingiz"
+								value={formData.brand}
+								onChange={handleChange}
+								className="w-full p-2 border rounded"
+								required
+							/>
+							<div className="flex gap-4">
+							<button
+							onClick={() => setIsModalOpen(false)}
+								type="submit"
+								className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-blue-600">
+								Bekor qilish
+							</button>
+							<button
+							onClick={() => setIsModalOpen(false)}
+								type="submit"
+								className="w-full bg-blue-700 text-white py-2 rounded-md hover:bg-blue-600">
+								Buyurtma qilish
+							</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			)}
 			<Header />
 			<div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
 				{/* Product Title */}
-				<h1 className="text-2xl font-bold">Name</h1>
+				<h1 className="text-2xl font-bold">{name}</h1>
 
 				{/* Main Section */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
@@ -38,10 +152,9 @@ const page = () => {
 					<div>
 						{/* Price Section */}
 						<div className="bg-gray-50 p-4 rounded-lg shadow">
-							<p className="text-gray-500 line-through">price</p>
-							<p className="text-3xl font-bold text-red-600">price</p>
+							<p className="text-3xl font-bold text-red-600">{price}</p>
 							<p className="text-gray-600 mt-2">Muddati to'lov:</p>
-							<p className="text-xl font-semibold">installment so'm</p>
+							<p className="text-xl font-semibold">{installment} so'm</p>
 						</div>
 
 						{/* Installment Plan */}
@@ -57,8 +170,8 @@ const page = () => {
 									12 oyga bo'lib to'lash
 								</button>
 							</div>
-							<p className="mt-2">33.999 so'mdan x 12</p>
-							<button className="bg-green-500 text-white w-full py-3 rounded-lg mt-4">
+							<p className="mt-2">{installment} so'mdan x 12</p>
+							<button className="bg-green-500 text-white w-full py-3 rounded-lg mt-4" onClick={() => setIsModalOpen(true)}>
 								Muddati to'lovga xarid qilish
 							</button>
 						</div>
@@ -100,6 +213,7 @@ const page = () => {
 				</div>
 			</div>
 			<Footer />
+
 		</div>
 	);
 }

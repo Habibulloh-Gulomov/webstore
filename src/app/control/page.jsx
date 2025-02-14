@@ -1,3 +1,5 @@
+'use client'
+
 import Admin from '@/components/Admin'
 import AdminList from '@/components/AdminList'
 import Header from '@/components/Header'

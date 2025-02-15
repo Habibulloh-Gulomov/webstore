@@ -7,10 +7,10 @@ export default function PostForm() {
 	const [body, setBody] = useState("");
 	const [info, setInfo] = useState("");
 	const [brand, setBrand] = useState("");
-	const [monthly, setMonthly] = useState('');
-	const [yearly, setYearly] = useState('');
+	const [monthly, setMonthly] = useState("");
+	const [yearly, setYearly] = useState("");
 	const [image, setImage] = useState([]);
-	const [cost, setCost] = useState('');
+	const [cost, setCost] = useState("");
 	const [subcategory, setSubcategory] = useState("");
 
 	const [response, setResponse] = useState(null);
@@ -25,9 +25,9 @@ export default function PostForm() {
 		e.preventDefault();
 		const formData = new FormData();
 		for (const element of image) {
-			formData.append("postImg", element)
+			formData.append("postImg", element);
 		}
-		
+
 		formData.append("product_name", title);
 		formData.append("product_description", body);
 		formData.append("subcategory", subcategory);
@@ -36,9 +36,9 @@ export default function PostForm() {
 		formData.append("product_cost", cost);
 		formData.append("product_monthly_pay_month", monthly);
 		formData.append("product_monthly_pay_year", yearly);
-
+    console.log(formData);
+		
 		try {
-
 			const res = await axios.post(
 				"http://thewebstorenode.uz.thewebstore.uz/posts",
 				formData,
@@ -50,16 +50,14 @@ export default function PostForm() {
 				}
 			);
 
-      if (res.data.status == 201) {
-				setIsModalOpen(false)
+			if (res.data.status == 201) {
 				alert("Mahsulot qo'shildi")
-				window.location.reload()
+				window.location.reload();
 			}
 		} catch (err) {
 			setError("Muammo yuz berdi");
-			alert("Muammo yuz berdi")
-			window.location.reload()
-       
+			alert("Muammo yuz berdi");
+			window.location.reload();
 		}
 	};
 
@@ -149,7 +147,7 @@ export default function PostForm() {
 								value={title}
 								onChange={(e) => setTitle(e.target.value)}
 								min={5}
-								placeholder="Title"
+								placeholder="Nomi"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
@@ -157,22 +155,37 @@ export default function PostForm() {
 								type="text"
 								value={brand}
 								onChange={(e) => setBrand(e.target.value)}
-								placeholder="Title"
+								placeholder="Brand"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
+							<select
+								type="text"
+								name="kategoriya"
+								value={subcategory}
+								onSelect={(e) => setSubcategory(e.target.value)}
+								className="w-full p-2 mb-2 border border-gray-300 rounded"
+								required>
+								<option value="" disabled defaultValue={''}
+									>Kategoriyasi</option>
+								<option value="1">Mavsumiy</option>
+								<option value="2">Telefon</option>
+								<option value="3">Quloqchin</option>
+								<option value="4">Televizor</option>
+								<option value="5">Boshqa</option>
+							</select>
 							<input
 								type="text"
 								value={info}
 								onChange={(e) => setInfo(e.target.value)}
-								placeholder="Title"
+								placeholder="Tavsif"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
 							<textarea
 								value={body}
 								onChange={(e) => setBody(e.target.value)}
-								placeholder="Body"
+								placeholder="Xususiyatlari"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
@@ -180,7 +193,7 @@ export default function PostForm() {
 								type="number"
 								value={cost}
 								onChange={(e) => setCost(e.target.value)}
-								placeholder="Cost"
+								placeholder="Narx"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
@@ -188,7 +201,7 @@ export default function PostForm() {
 								type="number"
 								value={monthly}
 								onChange={(e) => setMonthly(e.target.value)}
-								placeholder="Installment"
+								placeholder=" 6 Oylik to'lov"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
@@ -196,18 +209,12 @@ export default function PostForm() {
 								type="number"
 								value={yearly}
 								onChange={(e) => setYearly(e.target.value)}
-								placeholder="Installment"
+								placeholder="12 oylik to'lov"
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-							<input
-								type="text"
-								value={subcategory}
-								onChange={(e) => setSubcategory(e.target.value)}
-								placeholder="Installment"
-								className="w-full p-2 mb-2 border border-gray-300 rounded"
-								required
-							/>
+							<input />
+							
 							<input
 								type="file"
 								onChange={(e) => setImage(e.target.files)}

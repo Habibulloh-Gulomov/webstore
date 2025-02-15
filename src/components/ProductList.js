@@ -138,7 +138,7 @@ export default function ProductList() {
           {data.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
             <ProductCard 
             key={index} 
-            id = {item.id}
+            id = {item.postId}
             name={item.product_name} 
             category={item.category}
             price={item.product_cost}

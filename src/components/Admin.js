@@ -55,7 +55,7 @@ export default function PostForm() {
 
 		try {
 			const res = await axios.post(
-				"http://thewebstorenode.uz.thewebstore.uz/posts",
+				"https://thewebstorenode.uz.thewebstore.uz/posts",
 				formData,
 				{
 					headers: {
@@ -80,7 +80,7 @@ export default function PostForm() {
 		e.preventDefault();
 		try {
 			const res = await axios.post(
-				"http://thewebstorenode.uz.thewebstore.uz/sign",
+				"https://thewebstorenode.uz.thewebstore.uz/sign",
 				{
 					username,
 					password,

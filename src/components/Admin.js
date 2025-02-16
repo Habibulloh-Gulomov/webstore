@@ -14,17 +14,21 @@ export default function PostForm() {
 	const [monthly, setMonthly] = useState("");
 	const [yearly, setYearly] = useState("");
 	const [image, setImage] = useState([]);
-	const [cost, setCost] = useState("");
-	const [subcategory, setSubcategory] = useState("");
+	const [getToken, setToken] = useState(true)
 
-	const [response, setResponse] = useState(null);
+  useEffect(() => {
+    let token
+    // Get the token from local storage if it exists
+    token = localStorage.getItem("favoriteNumber") || ""
+    setToken(token)
+  }, [])
+
+	
 	const [error, setError] = useState(null);
-
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isLoginOpen, setIsLoginOpen] = useState(!localStorage.getItem('token'));
+	const [isLoginOpen, setIsLoginOpen] = useState(getToken ? false : true);
 	const [username, setLogin] = useState("");
 	const [password, setPassword] = useState("");
-  const [token,  setToken] = useState('')
 	useEffect(() => {
 		if (isModalOpen || isLoginOpen == true) {
 			document.body.style.overflow = "hidden";
@@ -275,19 +279,6 @@ export default function PostForm() {
 								Submit
 							</button>
 						</form>
-
-						{response && (
-							<div className="p-4 border border-green-500 bg-green-100 rounded">
-								<h2 className="font-semibold">Response:</h2>
-								<pre>{JSON.stringify(response, null, 2)}</pre>
-							</div>
-						)}
-
-						{error && (
-							<div className="p-4 border border-red-500 bg-red-100 rounded">
-								<p className="text-red-700">Error: {error}</p>
-							</div>
-						)}
 					</div>
 				</div>
 			)}

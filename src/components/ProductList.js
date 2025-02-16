@@ -55,7 +55,6 @@ export default function ProductList() {
 
 
   const [data, setData] = useState([]);
-  const [img, setImg] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {

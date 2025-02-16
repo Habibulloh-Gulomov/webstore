@@ -1,3 +1,4 @@
+'use client'
 import axios from 'axios';
 
 export default function DeletedCard({ name, category, id, brand}) {
@@ -7,7 +8,7 @@ export default function DeletedCard({ name, category, id, brand}) {
 if (answer) {  
   try {
     const response = await axios.delete(
-      `http://thewebstorenode.uz.thewebstore.uz/posts/${id}`,
+      `http://thewebstorenode.uz.thewebstore.uz/posts/:${id}`,
       {
         headers: {
           token: "eyJhbGciOiJIUzI1NiJ9.MQ.1tRPowLx-U0FAddHad0zerSPN41lydQhy7A-toLHzBo",
@@ -16,12 +17,13 @@ if (answer) {
     );
     if (response.status === 200) {
       window.location.reload()
-    } else {
+    } else {      
       alert('Failed to delete the item.');
+
     }
   } catch (error) {
     alert('Error deleting the item.');
-    console.error('Delete error:', error);
+    console.error('Delete error:', error.message);
   }
 }
 else {

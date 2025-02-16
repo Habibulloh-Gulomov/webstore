@@ -10,9 +10,7 @@ const AdminList = () => {
   useEffect(() => {
     axios.get('http://thewebstorenode.uz.thewebstore.uz/posts')
       .then(response => {
-        const filteredData = response.data.data.filter(item => item.isDeleted === false);
-        setData(filteredData);
-  console.log(response.data);
+        setData(response.data.data);
       })
       .catch(error => {
         setError(error.message);

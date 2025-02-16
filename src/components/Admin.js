@@ -36,8 +36,7 @@ export default function PostForm() {
 		formData.append("product_cost", cost);
 		formData.append("product_monthly_pay_month", monthly);
 		formData.append("product_monthly_pay_year", yearly);
-    console.log(formData);
-		
+
 		try {
 			const res = await axios.post(
 				"http://thewebstorenode.uz.thewebstore.uz/posts",
@@ -160,14 +159,12 @@ export default function PostForm() {
 								required
 							/>
 							<select
-								type="text"
 								name="kategoriya"
 								value={subcategory}
-								onSelect={(e) => setSubcategory(e.target.value)}
+								onChange={(e) => setSubcategory(e.target.value)}
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required>
-								<option value="" disabled defaultValue={''}
-									>Kategoriyasi</option>
+								<option value="" disabled>Kategoriyasi</option>
 								<option value="1">Mavsumiy</option>
 								<option value="2">Telefon</option>
 								<option value="3">Quloqchin</option>
@@ -214,7 +211,7 @@ export default function PostForm() {
 								required
 							/>
 							<input />
-							
+
 							<input
 								type="file"
 								onChange={(e) => setImage(e.target.files)}

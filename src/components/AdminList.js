@@ -8,7 +8,7 @@ const AdminList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://thewebstorenode.uz.thewebstore.uz/posts')
+    axios.get('https://thewebstorenode.uz.thewebstore.uz/posts')
       .then(response => {
         setData(response.data.data);
       })

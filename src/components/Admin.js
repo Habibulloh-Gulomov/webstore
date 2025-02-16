@@ -5,10 +5,8 @@ import Logo from '../images/logo.svg'
 import Search from '../images/search.png'
 import Image from "next/image";
 import { useEffect } from "react";
+
 export default function PostForm() {
-
-
-
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [info, setInfo] = useState("");
@@ -23,12 +21,12 @@ export default function PostForm() {
 	const [error, setError] = useState(null);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isLoginOpen, setIsLoginOpen] = useState(true);
+	const [isLoginOpen, setIsLoginOpen] = useState(!localStorage.getItem('token'));
 	const [username, setLogin] = useState("");
 	const [password, setPassword] = useState("");
-
+  const [token,  setToken] = useState('')
 	useEffect(() => {
-		if (isModalOpen || isLoginOpen == false) {
+		if (isModalOpen || isLoginOpen == true) {
 			document.body.style.overflow = "hidden";
 		} else {
 			document.body.style.overflow = "auto";
@@ -36,7 +34,7 @@ export default function PostForm() {
 		return () => {
 			document.body.style.overflow = "auto";
 		};
-	}, [isModalOpen]);
+	}, [isModalOpen, isLoginOpen]);
 	const handleSubmit = async (e) => {      
 		e.preventDefault();
 		const formData = new FormData();
@@ -88,7 +86,7 @@ export default function PostForm() {
 			);
 			if (res.status === 200) {
 				setIsLoginOpen(false);
-				console.log(res.data.token);
+				localStorage.setItem('token' , res.data.token)
 			} else {
 				setError("Invalid credentials");
 			}
@@ -262,7 +260,6 @@ export default function PostForm() {
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required
 							/>
-							<input />
 
 							<input
 								type="file"

@@ -67,12 +67,13 @@ export default function ProductList() {
       .catch(error => {
         setError(error.message);
       });
-  }, []);
+  }, data.length);
 
 
   return (
-    <div className="w-full p-5 text-black">
-      <h2 className="text-3xl font-bold mb-4">Parfyum</h2>
+   <>
+    <div className="w-full p-5 text-black px-[50px] lg:block md:hidden sm:hidden">
+      <h2 className="font-bold sm:text-xl lg:text-2xl mb-3">Telefonlar</h2>
       <div className="relative flex items-center justify-center"> {/* Relative for positioning arrows */}
         {startIndex > 0 && (
           <button onClick={prevSlide} className="absolute left-0 z-10 bg-gray-300 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400">⬅</button>
@@ -84,9 +85,9 @@ export default function ProductList() {
             img={item.postImg}
             id = {item.postId}
             name={item.product_name} 
-            category={item.category}
+            category={item.subcategory}
             price={item.product_cost}
-            installment={item.product_brand}
+            brand={item.product_brand}
           />
           ))}
         </div>
@@ -95,5 +96,19 @@ export default function ProductList() {
         )}
       </div>
     </div>
+    <div className=' lg:hidden md:block flex flex-wrap justify-center items-center'>
+    {data.map((item, index) => (
+            <ProductCard 
+            key={index} 
+            img={item.postImg}
+            id = {item.postId}
+            name={item.product_name} 
+            category={item.subcategory}
+            price={item.product_cost}
+            brand={item.product_brand}
+          />
+          ))}
+    </div>
+   </>
   );
 }

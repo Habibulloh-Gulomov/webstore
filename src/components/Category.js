@@ -21,8 +21,9 @@ const Category = () => {
 				{categories.map((category, index) => (
 					<div
 						key={index}
-						className="flex items-center justify-center bg-gray-100 px-6 py-4 rounded-lg min-w-[150px] text-center font-medium ">
-						{category}
+						className="flex items-center justify-center bg-gray-100  p-2 rounded-lg  text-center font-medium ">
+						<p>{category}</p>
+						<img src="https://www.piyolamarket.uz/_next/image?url=https%3A%2F%2Fpub-84845a3beb954d788ceee2312654bab2.r2.dev%2Fproducts%2F5125120b-222d-4ce6-a273-7c4410a3740e.webp&w=128&q=100" alt="" className="w-2/5" />
 					</div>
 				))}
 			</div>

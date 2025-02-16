@@ -3,64 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ProductCard from './ProductCard';
 import axios from 'axios';
-const perfumes = [
-  {
-    name: 'Bvlgari Le Gemme - Tygar',
-    category: 'Luxury Parfum',
-    price: '1,200,000 so‘m',
-    installment: '100,000 so‘m x 12 oy',
-    id: '1'
-  },
-  {
-    name: 'Tilia Marc-Antoine Barrois',
-    category: 'Luxury Parfum',
-    price: '1,500,000 so‘m',
-    installment: '125,000 so‘m x 12 oy',
-    id: '2'
-  },
-  {
-    name: 'With You Intensely',
-    category: 'Premium Parfum',
-    price: '980,000 so‘m',
-    installment: '81,666 so‘m x 12 oy',
-    id: '3'
-  },
-  {
-    name: 'Tom Ford Lost Cherry',
-    category: 'Luxury Parfum',
-    price: '2,000,000 so‘m',
-    installment: '166,666 so‘m x 12 oy',
-    id: '4'
-  },
-  {
-    name: 'Symphony Louis Vuitton',
-    category: 'Designer Parfum',
-    price: '1,750,000 so‘m',
-    installment: '145,833 so‘m x 12 oy',
-    id: '5'
-  },
-  {
-    name: 'Louis Vuitton Imagination',
-    category: 'Designer Parfum',
-    price: '1,900,000 so‘m',
-    installment: '158,333 so‘m x 12 oy',
-    id: '6'
-  },
-  {
-    name: 'Chanel Bleu de Chanel',
-    category: 'Classic Parfum',
-    price: '1,100,000 so‘m',
-    installment: '91,666 so‘m x 12 oy',
-    id: '7'
-  },
-  {
-    name: 'Dior Sauvage',
-    category: 'Classic Parfum',
-    price: '1,250,000 so‘m',
-    installment: '104,166 so‘m x 12 oy',
-    id: '8'
-  },
-];
+
 
 export default function ProductList() {
   
@@ -90,7 +33,7 @@ export default function ProductList() {
   }, []);
 
   const nextSlide = () => {
-    const newStartIndex = Math.min(startIndex + itemsPerPage, perfumes.length - itemsPerPage);
+    const newStartIndex = Math.min(startIndex + itemsPerPage, data.length - itemsPerPage);
     setStartIndex(newStartIndex);
     slideCarousel(newStartIndex);
   };
@@ -112,6 +55,7 @@ export default function ProductList() {
 
 
   const [data, setData] = useState([]);
+  const [img, setImg] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -125,7 +69,6 @@ export default function ProductList() {
       });
   }, []);
 
-  
 
   return (
     <div className="w-full p-5 text-black">
@@ -138,6 +81,7 @@ export default function ProductList() {
           {data.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
             <ProductCard 
             key={index} 
+            img={item.postImg}
             id = {item.postId}
             name={item.product_name} 
             category={item.category}
@@ -146,7 +90,7 @@ export default function ProductList() {
           />
           ))}
         </div>
-        {startIndex + itemsPerPage < perfumes.length && (
+        {startIndex + itemsPerPage < data.length && (
           <button onClick={nextSlide} className="absolute right-0 z-10 bg-gray-300 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400">➡</button>
         )}
       </div>

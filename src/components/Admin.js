@@ -1,8 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { League_Script } from "next/font/google";
-
+import Logo from '../images/logo.svg'
+import Search from '../images/search.png'
+import Image from "next/image";
+import { useEffect } from "react";
 export default function PostForm() {
+
+
+
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [info, setInfo] = useState("");
@@ -17,11 +23,21 @@ export default function PostForm() {
 	const [error, setError] = useState(null);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const [isLoginOpen, setIsLoginOpen] = useState(true);
 	const [username, setLogin] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = async (e) => {
+	useEffect(() => {
+		if (isModalOpen || isLoginOpen == false) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "auto";
+		}
+		return () => {
+			document.body.style.overflow = "auto";
+		};
+	}, [isModalOpen]);
+	const handleSubmit = async (e) => {      
 		e.preventDefault();
 		const formData = new FormData();
 		for (const element of image) {
@@ -84,7 +100,7 @@ export default function PostForm() {
 	return (
 		<div className="p-6 max-w-md mx-auto">
 			{isLoginOpen && (
-				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 z-10 ">
 					<div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
 						<h2 className="text-xl font-bold mb-4">Login</h2>
 						<form
@@ -122,15 +138,45 @@ export default function PostForm() {
 			)}
 
 			{!isLoginOpen && (
-				<button
-					onClick={() => setIsModalOpen(true)}
-					className="px-4 py-2 mb-4 bg-green-600 text-white rounded hover:bg-green-700">
-					Open Form
-				</button>
+				<div className="flex items-center justify-around border drop-shadow-md fixed bg-white top-0 right-0 left-0 z-15">
+					<Image
+						src={Logo}
+						width={120}
+						height={50}
+						alt="about image "
+						className="h-auto"
+						priority={true}
+					/>
+					<div className="inline w-2/5 relative">
+						<label
+							htmlforfor="search"
+							className=" hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">
+							search input
+						</label>
+						<input
+							type="text"
+							id="search"
+							className="border text-black p-2 px-5 rounded-md w-full pl-12"
+							placeholder="Mahsulotlarni qidirish..."
+						/>
+						<Image
+							src={Search}
+							width={23}
+							height={25}
+							alt="about image "
+							className="absolute bottom-3 left-4 h-auto "
+						/>
+					</div>
+					<button
+						onClick={() => setIsModalOpen(true)}
+						className="px-4 py-2 mb-4 bg-green-600 text-white rounded hover:bg-green-700">
+						Open Form
+					</button>
+				</div>
 			)}
 
 			{isModalOpen && (
-				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-15">
 					<div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
 						<button
 							onClick={() => setIsModalOpen(false)}
@@ -166,10 +212,16 @@ export default function PostForm() {
 								required>
 								<option value="" disabled>Kategoriyasi</option>
 								<option value="1">Mavsumiy</option>
-								<option value="2">Telefon</option>
-								<option value="3">Quloqchin</option>
-								<option value="4">Televizor</option>
-								<option value="5">Boshqa</option>
+								<option value="2">Smartfonlar</option>
+								<option value="3">Planshetlar</option>
+								<option value="4">Mobil Telefonlar</option>
+								<option value="5">SmartWatchlar</option>
+								<option value="6">Audiotexnika</option>
+								<option value="7">Monobloklar</option>
+								<option value="8">Noutbuklar</option>
+								<option value="9">Quvvatlagichlar</option>
+								<option value="10">Basseynlar</option>
+								<option value="11">Boshqa</option>
 							</select>
 							<input
 								type="text"

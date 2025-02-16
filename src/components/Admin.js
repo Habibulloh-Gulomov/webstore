@@ -14,16 +14,27 @@ export default function PostForm() {
 	const [monthly, setMonthly] = useState("");
 	const [yearly, setYearly] = useState("");
 	const [image, setImage] = useState([]);
-	const [getToken, setToken] = useState(true)
+	const [cost, setCost] = useState("");
+	const [subcategory, setSubcategory] = useState("");
+  let getToken 
+	try {
+		getToken = localStorage.getItem("token") || ""
+	} catch (error) {
+		console.log(error);
+		
+	}
 
-  useEffect(() => {
-    let token
-    // Get the token from local storage if it exists
-    token = localStorage.getItem("favoriteNumber") || ""
-    setToken(token)
-  }, [])
+// 	const [getToken, setToken] = useState(false)
 
-	
+//   useEffect(() => {
+//     let token
+//     // Get the token from local storage if it exists
+//     token = localStorage.getItem("token") || ""
+//     setToken(token ? true : false)
+// 		console.log(token);
+		
+//   }, [])
+// console.log(getToken);
 	const [error, setError] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isLoginOpen, setIsLoginOpen] = useState(getToken ? false : true);

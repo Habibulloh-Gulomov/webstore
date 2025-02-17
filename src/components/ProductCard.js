@@ -26,7 +26,7 @@ const ProductCard = ({ name, category, price, brand, id, img }) => {
         <img src={photo} alt="..." width={260} height={260} className="object-fill h-[260px] hover:w-[275px]" />
       </div>
       {/* Category */}
-      <p className=" bg-lime-300 w-2/6 text-center mt-2 ml-2 px-2.5 py-1 rounded-full text-sm">
+      <p className=" bg-lime-300 w-3/6 text-center mt-2 ml-2 px-2.5 py-1 rounded-full text-sm">
         {brand}
       </p>
       {/* Product Title */}
@@ -37,8 +37,8 @@ const ProductCard = ({ name, category, price, brand, id, img }) => {
       {/* Buy Link */}
       <Link href={{
         pathname: '/product',
-        query: { "id": id, "name": name, "category": category, "price": price }, // Query parameter
-      }} className="bg-gray-700 text-white flex justify-center items-center w-full font-bold py-4  mt-3 rounded-t-3xl hover:bg-gray-900 w-5/6 mx-auto transition">
+        query: { "id": id, }, // Query parameter
+      }} className="bg-gray-700 text-white flex justify-center items-center  font-bold py-4  mt-3 rounded-t-3xl hover:bg-gray-900 w-full mx-auto transition">
         🛒 SOTIB OLISH
       </Link>
     </div>

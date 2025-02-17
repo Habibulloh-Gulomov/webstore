@@ -17,6 +17,7 @@ const AdminList = () => {
         setError(error.message);
       });
   }, [data.response]);
+  
   return (
     <>
     <p className='text-3xl items-center font-bold text-center mt-12 pt-12 subpixel-antialiased '>Hamma Mahsulotlar</p>

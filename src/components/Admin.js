@@ -5,8 +5,28 @@ import Logo from '../images/logo.svg'
 import Search from '../images/search.png'
 import Image from "next/image";
 import { useEffect } from "react";
+import AddNewItem from "./addNewItem";
 
 export default function PostForm() {
+ // searching item
+	// const [isSearch, setSearch] = useState(null)
+	// const [isSearchData, setSearchData] = useState([])
+  // useEffect(() => {
+  //   axios.get('https://thewebstorenode.uz.thewebstore.uz/posts')
+  //     .then(response => {
+  //       setSearchData(response.data.data.product_name);
+	// 			console.log(response);
+				
+  //     })
+  //     .catch(error => {
+  //       console.log();
+	// 			(error.message);
+  //     });
+  // }, isSearch);
+	
+
+
+	// adding new item
 	const [title, setTitle] = useState("");
 	const [body, setBody] = useState("");
 	const [info, setInfo] = useState("");
@@ -16,30 +36,17 @@ export default function PostForm() {
 	const [image, setImage] = useState([]);
 	const [cost, setCost] = useState("");
 	const [subcategory, setSubcategory] = useState("");
-  let getToken 
+	let getToken
 	try {
 		getToken = localStorage.getItem("token") || ""
 	} catch (error) {
 		console.log(error);
-		
+
 	}
 
-// 	const [getToken, setToken] = useState(false)
-
-//   useEffect(() => {
-//     let token
-//     // Get the token from local storage if it exists
-//     token = localStorage.getItem("token") || ""
-//     setToken(token ? true : false)
-// 		console.log(token);
-		
-//   }, [])
-// console.log(getToken);
-	const [error, setError] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isSearchOpen, setSearchOpen] = useState(false);
 	const [isLoginOpen, setIsLoginOpen] = useState(getToken ? false : true);
-	const [username, setLogin] = useState("");
-	const [password, setPassword] = useState("");
 	useEffect(() => {
 		if (isModalOpen || isLoginOpen == true) {
 			document.body.style.overflow = "hidden";
@@ -50,7 +57,7 @@ export default function PostForm() {
 			document.body.style.overflow = "auto";
 		};
 	}, [isModalOpen, isLoginOpen]);
-	const handleSubmit = async (e) => {      
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		for (const element of image) {
@@ -89,65 +96,11 @@ export default function PostForm() {
 		}
 	};
 
-	const handleLogin = async (e) => {
-		e.preventDefault();
-		try {
-			const res = await axios.post(
-				"https://thewebstorenode.uz.thewebstore.uz/sign",
-				{
-					username,
-					password,
-				}
-			);
-			if (res.status === 200) {
-				setIsLoginOpen(false);
-				localStorage.setItem('token' , res.data.token)
-			} else {
-				setError("Invalid credentials");
-			}
-		} catch (err) {
-			setError("Login failed");
-		}
-	};
-
+	
 	return (
 		<div className="p-6 max-w-md mx-auto">
 			{isLoginOpen && (
-				<div className="fixed inset-0 flex items-center justify-center bg-gray-800 z-10 ">
-					<div className="bg-white p-6 rounded-lg shadow-lg relative w-full max-w-md">
-						<h2 className="text-xl font-bold mb-4">Login</h2>
-						<form
-							onSubmit={handleLogin}
-							className="mb-4">
-							<input
-								type="text"
-								value={username}
-								onChange={(e) => setLogin(e.target.value)}
-								placeholder="Username"
-								className="w-full p-2 mb-2 border border-gray-300 rounded"
-								required
-							/>
-							<input
-								type="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								placeholder="Password"
-								className="w-full p-2 mb-2 border border-gray-300 rounded"
-								required
-							/>
-							<button
-								type="submit"
-								className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-								Login
-							</button>
-						</form>
-						{error && (
-							<div className="p-4 border border-red-500 bg-red-100 rounded">
-								<p className="text-red-700">Error: {error}</p>
-							</div>
-						)}
-					</div>
-				</div>
+				<AddNewItem/>
 			)}
 
 			{!isLoginOpen && (
@@ -167,6 +120,7 @@ export default function PostForm() {
 							search input
 						</label>
 						<input
+						// onChange={(e) => setSearch(e.target.value)}
 							type="text"
 							id="search"
 							className="border text-black p-2 px-5 rounded-md w-full pl-12"

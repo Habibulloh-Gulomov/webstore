@@ -4,14 +4,22 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Suspense } from "react";
 import { useState , useEffect} from "react";
+import axios from "axios";
 
 const page = () => {
 	const searchParams = useSearchParams();
-	const name = searchParams.get("name");
-	const category = searchParams.get('category');
-	const price = searchParams.get("price");
-	const installment = searchParams.get('installment');
 	const id = searchParams.get('id');
+	const [data, setData] = useState(null)
+	
+	useEffect(() => {
+    axios.get(`https://thewebstorenode.uz.thewebstore.uz/post/${id}`)
+      .then(response => {
+					setData(response.data);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, []);
 
 	const [formData, setFormData] = useState({
 		name: "",
@@ -23,22 +31,24 @@ const page = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await fetch("https://your-backend-api.com/products", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(formData),
-			});
-			if (!response.ok) {
-				throw new Error("Failed to submit form");
-			}
-			console.log("Form submitted successfully");
-			setIsModalOpen(false);
-		} catch (error) {
-			console.error("Error submitting form:", error);
-		}
+		console.log(formData);
+		
+		// try {
+		// 	const response = await fetch("https://your-backend-api.com/products", {
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify(formData),
+		// 	});
+		// 	if (!response.ok) {
+		// 		throw new Error("Failed to submit form");
+		// 	}
+		// 	console.log("Form submitted successfully");
+		// 	setIsModalOpen(false);
+		// } catch (error) {
+		// 	console.error("Error submitting form:", error);
+		// }
 	};
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -55,6 +65,12 @@ const page = () => {
 				document.body.style.overflow = "auto";
 			};
 		}, [isModalOpen]);
+
+
+
+		// cost and text changes
+		const [text, setText] = useState(true)
+		const [cost, setCost] = useState(true)
 	return (
 		<div>
 				{isModalOpen && (
@@ -70,12 +86,22 @@ const page = () => {
 						</h2>
 						<form
 							onSubmit={handleSubmit}
-							className="space-y-4">
+							className="space-y-4 text-black">
 
 							<input
 							type="text"
-								name="tuman"
-								placeholder="tuman tanlang"
+								name="name"
+								placeholder="Ismingiz"
+								value={formData.name}
+								onChange={handleChange}
+								className="w-full p-2 border rounded"
+								required
+							/>
+
+							<input
+								type="text"
+								name="description"
+								placeholder="description"
 								value={formData.description}
 								onChange={handleChange}
 								className="w-full p-2 border rounded"
@@ -84,18 +110,8 @@ const page = () => {
 
 							<input
 								type="text"
-								name="location"
-								placeholder="Viloyatni "
-								value={formData.cost}
-								onChange={handleChange}
-								className="w-full p-2 border rounded"
-								required
-							/>
-
-							<input
-								type="text"
 								name="brand"
-								placeholder="Ismingizni kiriting"
+								placeholder="brand"
 								value={formData.brand}
 								onChange={handleChange}
 								className="w-full p-2 border rounded"
@@ -104,22 +120,22 @@ const page = () => {
 
 <input
 								type="text"
-								name="brand"
-								placeholder="Raqamingiz"
-								value={formData.brand}
+								name="cost"
+								placeholder="cost"
+								value={formData.cost}
 								onChange={handleChange}
 								className="w-full p-2 border rounded"
 								required
 							/>
 							<div className="flex gap-4">
 							<button
-							onClick={() => setIsModalOpen(false)}
-								type="submit"
+							onClick={() => setIsModalOpen(!isModalOpen)}
+								type="button"
 								className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-blue-600">
 								Bekor qilish
 							</button>
 							<button
-							onClick={() => setIsModalOpen(false)}
+							onClick={() => setIsModalOpen(!isModalOpen)}
 								type="submit"
 								className="w-full bg-blue-700 text-white py-2 rounded-md hover:bg-blue-600">
 								Buyurtma qilish
@@ -132,19 +148,20 @@ const page = () => {
 			<Header />
 			<div className="p-6 max-w-6xl mx-auto text-black mt-12 pt-12">
 				{/* Product Title */}
-				<h1 className="text-2xl font-bold">{name}</h1>
+				<h1 className="text-2xl font-bold">{data? data.product_name : 'Mahsulot nomi'}</h1>
 
 				{/* Main Section */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
 					{/* Left Section: Images */}
 					<div className="space-y-4">
 						<div className="bg-gray-100 rounded-lg p-6 flex justify-center">
-							<div className="w-64 h-64 bg-gray-200 rounded-lg"></div>
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className=" border hover:shadow-md rounded object-none.69639" />
+							
 						</div>
 						<div className="flex space-x-2">
-							<div className="w-20 h-20 bg-gray-200 rounded-lg"></div>
-							<div className="w-20 h-20 bg-gray-200 rounded-lg"></div>
-							<div className="w-20 h-20 bg-gray-200 rounded-lg"></div>
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[1]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[2]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
 						</div>
 					</div>
 
@@ -152,9 +169,9 @@ const page = () => {
 					<div>
 						{/* Price Section */}
 						<div className="bg-gray-50 p-4 rounded-lg shadow">
-							<p className="text-3xl font-bold text-red-600">{price}</p>
+							<p className="text-3xl font-bold text-red-600">{data? data.product_cost : 'Mahsulot narxi'}</p>
 							<p className="text-gray-600 mt-2">Muddati to'lov:</p>
-							<p className="text-xl font-semibold">{installment} so'm</p>
+							<p className="text-xl font-semibold">{data? data.product_monthly_pay_month : 'Mahsulot bolib tolash'} so'm</p>
 						</div>
 
 						{/* Installment Plan */}
@@ -170,7 +187,7 @@ const page = () => {
 									12 oyga bo'lib to'lash
 								</button>
 							</div>
-							<p className="mt-2">{installment} so'mdan x 12</p>
+							<p className="mt-2">{data? data.product_monthly_pay_month : 'Mahsulot bolib tolash narxi'} so'mdan x 12</p>
 							<button className="bg-green-500 text-white w-full py-3 rounded-lg mt-4" onClick={() => setIsModalOpen(true)}>
 								Muddati to'lovga xarid qilish
 							</button>
@@ -193,22 +210,16 @@ const page = () => {
 
 				{/* Product Details */}
 				<div className="mt-8">
-					<h2 className="text-xl font-semibold border-b pb-2">
+				<div className="border-b flex">
+				<button  className="text-xl font-semibold border-b-3 border-grey-700 pb-2 mr-5 trasition">
 						Mahsulot xususiyatlari
-					</h2>
-					<p className="mt-4 text-gray-600">
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-						Necessitatibus, vel! Voluptatem voluptatibus debitis, tenetur
-						quibusdam non et, eaque, esse perferendis eum sed expedita minima
-						saepe. Totam dolorem blanditiis voluptas impedit repellat, quod
-						cumque dolorum molestiae tempore aliquid incidunt ad, sapiente
-						eligendi laudantium earum accusamus. Nemo voluptatem animi molestias
-						illum quaerat?
+					</button>
+					<p className="text-xl font-semibold  pb-2">
+						Tavsif
 					</p>
-					<p className="mt-4 text-gray-600">
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-						nostrum deleniti natus dolore consequatur, nemo laboriosam quasi
-						quisquam necessitatibus tenetur!
+				</div>
+					<p className="mt-4 text-gray-600 lg:w-3/6 md:w-full">
+					{text ? data?.product_description : data?.product_info}
 					</p>
 				</div>
 			</div>

@@ -71,6 +71,16 @@ const page = () => {
 		// cost and text changes
 		const [text, setText] = useState(true)
 		const [cost, setCost] = useState(true)
+		const handleActive = (e) => {
+      e.preventDefault();
+			setText(!text)
+		}
+		const handleCost = (e) => {
+      e.preventDefault();
+			setCost(!cost)
+		}
+			
+		
 	return (
 		<div>
 				{isModalOpen && (
@@ -154,9 +164,9 @@ const page = () => {
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
 					{/* Left Section: Images */}
 					<div className="space-y-4">
-						<div className="bg-gray-100 rounded-lg p-6 flex justify-center">
-							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className=" border hover:shadow-md rounded object-none.69639" />
-							
+						<div className="rounded-lg flex  gap-3">
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className=" border w-full hover:shadow-md rounded object-none.69639" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[1]}` : '...'} alt="" className=" border hover:shadow-md rounded object-none.69639" />
 						</div>
 						<div className="flex space-x-2">
 							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
@@ -171,7 +181,7 @@ const page = () => {
 						<div className="bg-gray-50 p-4 rounded-lg shadow">
 							<p className="text-3xl font-bold text-red-600">{data? data.product_cost : 'Mahsulot narxi'}</p>
 							<p className="text-gray-600 mt-2">Muddati to'lov:</p>
-							<p className="text-xl font-semibold">{data? data.product_monthly_pay_month : 'Mahsulot bolib tolash'} so'm</p>
+							<p className="text-xl font-semibold">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so'm</p>
 						</div>
 
 						{/* Installment Plan */}
@@ -180,14 +190,14 @@ const page = () => {
 								Muddati to'lovga rasmiylashtirish
 							</h3>
 							<div className="flex space-x-4 mt-2">
-								<button className="bg-gray-200 px-4 py-2 rounded-lg">
+								<button onClick={handleCost} className={cost ? `bg-gray-200 px-4 py-2 rounded-lg`: "bg-blue-600 text-white px-4 py-2 rounded-lg"}>
 									6 oy
 								</button>
-								<button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-									12 oyga bo'lib to'lash
+								<button onClick={handleCost} className={!cost ? `bg-gray-200 px-4 py-2 rounded-lg`: "bg-blue-600 text-white px-4 py-2 rounded-lg"}>
+									12 oyga
 								</button>
 							</div>
-							<p className="mt-2">{data? data.product_monthly_pay_month : 'Mahsulot bolib tolash narxi'} so'mdan x 12</p>
+							<p className="mt-2">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so'mdan x 12</p>
 							<button className="bg-green-500 text-white w-full py-3 rounded-lg mt-4" onClick={() => setIsModalOpen(true)}>
 								Muddati to'lovga xarid qilish
 							</button>
@@ -211,12 +221,12 @@ const page = () => {
 				{/* Product Details */}
 				<div className="mt-8">
 				<div className="border-b flex">
-				<button  className="text-xl font-semibold border-b-3 border-grey-700 pb-2 mr-5 trasition">
+				<button onClick={handleActive} className="text-xl font-semibold border-b-3 border-grey-700 pb-2 mr-5 trasition">
 						Mahsulot xususiyatlari
 					</button>
-					<p className="text-xl font-semibold  pb-2">
+					<button onClick={handleActive} className="text-xl font-semibold  pb-2">
 						Tavsif
-					</p>
+					</button>
 				</div>
 					<p className="mt-4 text-gray-600 lg:w-3/6 md:w-full">
 					{text ? data?.product_description : data?.product_info}

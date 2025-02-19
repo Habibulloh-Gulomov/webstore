@@ -6,6 +6,11 @@ import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
+import logo from '../../images/logo.svg'
+import Image from "next/image";
+import { addMonths, format } from "date-fns";
+
+
 const page = () => {
 	const [data, setData] = useState(null)
 
@@ -50,7 +55,13 @@ const page = () => {
 		}
 	};
 
-
+  // get future date
+	const sixMonthsLater = format(addMonths(new Date(), 6), "yyyy-MM-dd");
+	const twelveMonthsLater = format(addMonths(new Date(), 12), "yyyy-MM-dd");
+	
+	console.log("6 Months Later:", sixMonthsLater);
+	console.log("12 Months Later:", twelveMonthsLater);
+	
 
 	// get and design
 	const searchParams = useSearchParams();
@@ -68,14 +79,14 @@ const page = () => {
 	}, []);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
-	const [ category, setCategory] = useState([])
+
+	const [category, setCategory] = useState([])
 	useEffect(() => {
 		axios.get(`https://thewebstorenode.uz.thewebstore.uz/posts?subcategory=${subcategory}`)
 			.then(response => {
 				setCategory(response.data.data);
 				console.log(response.data)
-				
+
 			})
 			.catch(error => {
 				console.log(error.message);
@@ -174,7 +185,6 @@ const page = () => {
 							<p className="text-xl mt-px sm:text-2xl font-bold">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so'm</p>
 						</div>
 
-						{/* Installment Plan */}
 						<div className=" flex flex-col gap-3 mt-3">
 							<h3 className="text-lg font-semibold">
 								Muddati to'lovga rasmiylashtirish
@@ -187,7 +197,17 @@ const page = () => {
 									12 oyga
 								</button>
 							</div>
-							<p className="mt-2">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so'mdan x 12</p>
+							<div className="border-primary border-2 overflow-hidden cursor-pointer w-full p-2 rounded-lg" ><div className="bg-gray-100 transition-400 rounded-lg flex px-3 py-3 items-center justify-between">
+								<Image alt="UZUM" loading="lazy" width="11755" height="7541" decoding="async" data-nimg="1" className="h-8 w-auto" src={logo} />
+								<p className="text-sm xl:text-base font-semibold">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so'mdan X {cost ? "12" : "6"}</p></div><div className="overflow-hidden grid grid-cols-2 mt-2 pl-4 gap-y-1 sm:gap-y-px text-xs sm:text-sm font-medium">
+									<p className="break-all line-clamp-1">To’lov muddati</p>
+									<p className="break-all line-clamp-1">{cost ? "12 oy": "6 oy"}</p>
+									<p className="break-all line-clamp-1">Oylik to’lov</p>
+									<p className="break-all line-clamp-1">{cost ? data?.product_monthly_pay_month : data?.product_monthly_pay_year} so’m</p>
+									<p className="break-all line-clamp-1">To’lovning oxirgi sanasi</p>
+									<p className="break-all line-clamp-1">{cost ? twelveMonthsLater : sixMonthsLater}</p>
+								</div>
+							</div>
 							<button className="bg-green-500 text-white w-full py-3 rounded-lg mt-4 pulse rounded-full" onClick={() => setIsModalOpen(true)} >
 								Muddati to'lovga xarid qilish
 							</button>
@@ -196,21 +216,21 @@ const page = () => {
 						{/* Availability & Delivery */}
 						<ul className="mt-6 border rounded-lg border-b-2 border-black-700 p-2">
 							<li className="flex items-center border-b-2 border-black-700 p-2">
-								<img src="https://www.piyolamarket.uz/_next/static/media/double-check.4be17432.svg" alt="" className="w-[35px] mr-5"/>
+								<img src="https://www.piyolamarket.uz/_next/static/media/double-check.4be17432.svg" alt="" className="w-[35px] mr-5" />
 								<div>
 									<p className="text-foreground-500 text-medium">Mahsulot Do'konda mavjud!</p>
 									<p className="text-foreground-200 font-normal text-xs">sifat va mavjudlik kafolati</p>
 								</div>
 							</li>
 							<li className="flex items-center border-b-2 border-black-700 p-2">
-							<img src="https://www.piyolamarket.uz/_next/static/media/shield.789624c8.svg" className="w-[35px] mr-5" alt="" />
+								<img src="https://www.piyolamarket.uz/_next/static/media/shield.789624c8.svg" className="w-[35px] mr-5" alt="" />
 								<div>
 									<p className="text-foreground-500 text-medium">Rasmiy Kafolat</p>
 									<p className="text-foreground-200 font-normal text-xs">1 yil</p>
 								</div>
 							</li>
 							<li className="flex items-center p-2">
-							<img src="https://www.piyolamarket.uz/_next/static/media/delivery.531e5f06.svg" className="w-[35px] mr-5" alt="" />
+								<img src="https://www.piyolamarket.uz/_next/static/media/delivery.531e5f06.svg" className="w-[35px] mr-5" alt="" />
 								<div>
 									<p className="text-foreground-500 text-medium">Yetkazib berish xizmati</p>
 									<p className="text-foreground-200 font-normal text-xs">O'zbekiston berish xizmati</p>
@@ -236,20 +256,20 @@ const page = () => {
 				</div>
 			</div>
 			<div className="p-12">
-			<p className="text-2xl font-semibold  pb-2 text-black  mb-3 transition mr-3">Sizga yoqishi mumkin</p>
-			<ul className="flex gap-5 flex-wrap">
-			{category.map((item, index) => (
-            <ProductCard 
-            key={index} 
-            img={item.postImg}
-            id = {item.postId}
-            name={item.product_name} 
-            category={item.subcategory}
-            price={item.product_cost}
-            brand={item.product_brand}
-          />
-          ))}
-			</ul>
+				<p className="text-2xl font-semibold  pb-2 text-black  mb-3 transition mr-3">Sizga yoqishi mumkin</p>
+				<ul className="flex gap-5 flex-wrap">
+					{category.map((item, index) => (
+						<ProductCard
+							key={index}
+							img={item.postImg}
+							id={item.postId}
+							name={item.product_name}
+							category={item.subcategory}
+							price={item.product_cost}
+							brand={item.product_brand}
+						/>
+					))}
+				</ul>
 			</div>
 			<Footer />
 

@@ -8,6 +8,20 @@ import { useEffect } from "react";
 import AddNewItem from "./addNewItem";
 
 export default function PostForm() {
+	const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get("https://thewebstorenode.uz.thewebstore.uz/subcategory");
+        setCategories(response.data);
+        console.log(response);
+        
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
  // searching item
 	// const [isSearch, setSearch] = useState(null)
 	// const [isSearchData, setSearchData] = useState([])
@@ -87,12 +101,12 @@ export default function PostForm() {
 
 			if (res.data.status == 201) {
 				alert("Mahsulot qo'shildi")
-				window.location.reload();
+				window?.location.reload();
 			}
 		} catch (err) {
 			setError("Muammo yuz berdi");
 			alert("Muammo yuz berdi");
-			window.location.reload();
+			window?.location.reload();
 		}
 	};
 
@@ -109,8 +123,8 @@ export default function PostForm() {
 						src={Logo}
 						width={120}
 						height={50}
-						alt="about image "
-						className="h-auto"
+						alt="company logo"
+						className="h-auto w-[120px]"
 						priority={true}
 					/>
 					<div className="inline w-2/5 relative">
@@ -177,18 +191,9 @@ export default function PostForm() {
 								onChange={(e) => setSubcategory(e.target.value)}
 								className="w-full p-2 mb-2 border border-gray-300 rounded"
 								required>
-								<option value="" disabled>Kategoriyasi</option>
-								<option value="1">Mavsumiy</option>
-								<option value="2">Smartfonlar</option>
-								<option value="3">Planshetlar</option>
-								<option value="4">Mobil Telefonlar</option>
-								<option value="5">SmartWatchlar</option>
-								<option value="6">Audiotexnika</option>
-								<option value="7">Monobloklar</option>
-								<option value="8">Noutbuklar</option>
-								<option value="9">Quvvatlagichlar</option>
-								<option value="10">Basseynlar</option>
-								<option value="11">Boshqa</option>
+								{categories.map((e)=> (
+								<option value={e.subcategory_id}>{e.title}</option>
+								))}
 							</select>
 							<input
 								type="text"

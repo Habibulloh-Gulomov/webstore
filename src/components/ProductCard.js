@@ -9,9 +9,7 @@ const ProductCard = ({ name, category, price, brand, id, img }) => {
   for (const element of img[0]) {
     if (element == ' ') {
       photo = something
-      console.log(something.src);
     } else {
-      console.log(false);
       
     }
   }

@@ -37,7 +37,7 @@ const ProductCard = ({ name, category, price, brand, id, img }) => {
       {/* Buy Link */}
       <Link href={{
         pathname: '/product',
-        query: { "id": id, }, // Query parameter
+        query: { "id": id, 'category': category }, // Query parameter
       }} className="bg-gray-700 text-white flex justify-center items-center  font-bold py-4  mt-3 rounded-t-3xl hover:bg-gray-900 w-full mx-auto transition">
         🛒 SOTIB OLISH
       </Link>

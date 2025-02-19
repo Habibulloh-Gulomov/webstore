@@ -2,6 +2,7 @@
 
 import Admin from '@/components/Admin'
 import AdminList from '@/components/AdminList'
+import Order from '@/components/Order'
 import React from 'react'
 
 const Control = () => {
@@ -9,6 +10,7 @@ const Control = () => {
     <div className='text-black '>
       <Admin/>
       <AdminList/>
+      <Order/>
     </div>
   )
 }

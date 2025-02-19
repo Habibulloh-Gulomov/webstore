@@ -1,6 +1,7 @@
 'use client'
 import axios from "axios";
 import { useState, useEffect } from "react";
+import ProductList from "./ProductList";
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   console.log(categories);
@@ -19,7 +20,13 @@ const CategoryList = () => {
   return (
     <div>
       {categories?.map(e=>(
-        <p className="text-black">hello world</p>
+        <ul>
+          <ProductList
+          key={e.subcategory_id}
+          title = {e.title}
+          category_id = {e.subcategory_id}
+          />
+        </ul>
       ))}
     </div>
   )

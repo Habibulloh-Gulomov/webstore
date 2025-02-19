@@ -12,12 +12,19 @@ import { addMonths, format } from "date-fns";
 
 
 const page = () => {
+	
+	const [text, setText] = useState(true)
+	const [cost, setCost] = useState(true)
+	let date = !cost ? "6 Default" : "12 Default"
+	const searchParams = useSearchParams();
+	const id = searchParams.get('id');
+	const subcategory = searchParams.get('category');
 	const [data, setData] = useState(null)
-
+  const [error, setError] = useState(false)
+	
 	// uzum market ariza
 	const [formData, setFormData] = useState({
 		phone: "",
-		period: "",
 		amount: '',
 
 	});
@@ -31,27 +38,28 @@ const page = () => {
 		try {
 			const response = await axios.post("http://thewebstorenode.uz.thewebstore.uz/order", {
 				phone: formData.phone,
-				period: formData.period,
+				period: date,
 				products: [{
 					amount: formData.amount,
 					name: data.product_name,
+					imei: "213421341234134",
 					price: data.product_cost,
 					category: data.subcategory,
 					unit_id: "1",
-					product_id: '2',
+					product_id: id,
 				}]
 			}, {
 				headers: { 'Content-Type': 'application/json' }
 
 			});
-			console.log(formData);
 			console.log(response);
+			window.open(response.data)
 
 
 		} catch (error) {
-			console.log(formData);
+      setError(true)
+			console.log(error);
 
-			console.error(error);
 		}
 	};
 
@@ -64,9 +72,6 @@ const page = () => {
 	
 
 	// get and design
-	const searchParams = useSearchParams();
-	const id = searchParams.get('id');
-	const subcategory = searchParams.get('category');
 
 	useEffect(() => {
 		axios.get(`https://thewebstorenode.uz.thewebstore.uz/post/${id}`)
@@ -107,8 +112,6 @@ const page = () => {
 
 
 	// cost and text changes
-	const [text, setText] = useState(true)
-	const [cost, setCost] = useState(true)
 	const handleActive = (e) => {
 		e.preventDefault();
 		setText(!text)
@@ -135,9 +138,8 @@ const page = () => {
 						<form
 							onSubmit={handleSelfieSubmit}
 							className="space-y-4 text-black" method="POST">
-							<input name="phone" placeholder="Phone" onChange={handleChange} className="w-full p-2 border rounded" autoComplete="off" />
-							<input name="period" placeholder="Product period" onChange={handleChange} className="w-full p-2 border rounded" />
-							<input name="amount" placeholder="Product amount" onChange={handleChange} className="w-full p-2 border rounded" />
+							<input name="phone" placeholder="Telefon raqami" onChange={handleChange} className="w-full p-2 border rounded" autoComplete="off" />
+							<input name="amount" placeholder="Mahsulot soni" onChange={handleChange} className="w-full p-2 border rounded" type="number" />
 							<div className="flex gap-4">
 								<button
 									onClick={() => setIsModalOpen(!isModalOpen)}
@@ -151,7 +153,13 @@ const page = () => {
 									className="w-full bg-blue-700 text-white py-2 rounded-md hover:bg-blue-600">
 									Buyurtma qilish
 								</button>
+								
 							</div>
+							{error && (
+        <p className="text-red-600 text-sm mt-3 bg-red-100 p-3 rounded-lg text-center">
+            Muammo yuzaga keldi! <br /> Qayta urinib ko'ring yoki raqam registratsiyasini tekshirib ko'ring
+        </p>
+    )}
 						</form>
 					</div>
 				</div>

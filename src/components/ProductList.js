@@ -5,7 +5,9 @@ import ProductCard from './ProductCard';
 import axios from 'axios';
 
 
-export default function ProductList() {
+export default function ProductList({title, category_id}) {
+  console.log(title);
+  
   
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -58,7 +60,7 @@ export default function ProductList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('https://thewebstorenode.uz.thewebstore.uz/posts')
+    axios.get(`https://thewebstorenode.uz.thewebstore.uz/posts?subcategory=${category_id}`)
       .then(response => {
         setData(response.data.data);
   console.log(response.data);
@@ -72,7 +74,7 @@ export default function ProductList() {
   return (
    <>
     <div className="w-full p-5 text-black px-[50px] lg:block md:hidden sm:hidden">
-      <h2 className="font-bold sm:text-xl lg:text-2xl mb-3">Telefonlar</h2>
+      <h2 className="font-bold sm:text-xl lg:text-2xl mb-3">{title}</h2>
       <div className="relative flex items-center justify-center"> {/* Relative for positioning arrows */}
         {startIndex > 0 && (
           <button onClick={prevSlide} className="absolute left-0 z-10 bg-gray-300 px-4 py-2 rounded-lg shadow-md hover:bg-gray-400">⬅</button>

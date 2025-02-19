@@ -54,7 +54,6 @@ export default function Home() {
 			<div>
 				<Header />
 				<Category />
-				<ProductList/>
 				<CategoryList/>
 				<Footer />
 			</div>

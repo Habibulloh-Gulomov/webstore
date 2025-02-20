@@ -133,20 +133,6 @@ export default function PostForm() {
 							className=" hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">
 							search input
 						</label>
-						<input
-						// onChange={(e) => setSearch(e.target.value)}
-							type="text"
-							id="search"
-							className="border text-black p-2 px-5 rounded-md w-full pl-12"
-							placeholder="Mahsulotlarni qidirish..."
-						/>
-						<Image
-							src={Search}
-							width={23}
-							height={25}
-							alt="about image "
-							className="absolute bottom-3 left-4 h-auto "
-						/>
 					</div>
 					<button
 						onClick={() => setIsModalOpen(true)}

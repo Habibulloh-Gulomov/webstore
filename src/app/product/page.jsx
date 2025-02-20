@@ -265,7 +265,8 @@ const page = () => {
 			</div>
 			<div className="p-12">
 				<p className="text-2xl font-semibold  pb-2 text-black  mb-3 transition mr-3">Sizga yoqishi mumkin</p>
-				<ul className="flex gap-5 flex-wrap">
+				<div className="flex flex-wrap">
+				<ul className="flex gap-5 ">
 					{category.map((item, index) => (
 						<ProductCard
 							key={index}
@@ -278,6 +279,7 @@ const page = () => {
 						/>
 					))}
 				</ul>
+				</div>
 			</div>
 			<Footer />
 

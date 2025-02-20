@@ -41,7 +41,6 @@ const Order = () => {
     console.log(orderId);
     
     try {
-      const token = "your_token_here"; // Replace with actual token
       await axios.post(
         `https://thewebstorenode.uz.thewebstore.uz/orders/${orderId}`,
         {},
@@ -50,7 +49,6 @@ const Order = () => {
         }
       );
   
-      // Remove the order from state after successful cancellation
       setOrders((prevOrders) => prevOrders.filter((order) => order.order_id !== orderId));
   
       alert("Order cancelled successfully!");

@@ -14,14 +14,14 @@ const ProductCard = ({ name, category, price, brand, id, img }) => {
     }
   }
   return (
-    <div className="flex-col justify-between min-h-52 h-full relative flex overflow-hidden bg-white cursor-pointer rounded-xl group border border-gray-100 hover:border-gray-200 shadow-sm hover:shadow group lg:w-full md:w-[300px] w-[200px]">
+    <div className="flex-col justify-between min-h-52 h-full relative flex overflow-hidden bg-white cursor-pointer rounded-xl group border border-gray-100 hover:border-gray-200 shadow-sm hover:shadow group lg:w-full md:w-[300px] w-[180px]">
       {/* Favorite Icon */}
       <div className="flex justify-end">
         <button className="z-0 group inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent data-[pressed=true]:scale-[0.97] outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-small gap-2 rounded-full px-0 !gap-0 transition-transform-colors-opacity motion-reduce:transition-none text-default-foreground min-w-10 w-10 h-10 data-[hover=true]:opacity-hover absolute top-2 right-2 bg-transparent">❤️</button>
       </div>
       {/* Product Image Placeholder */}
-      <div className="flex justify-center lg:w-[260px] w-[200px]">
-        <img src={photo} alt="..." className="object-fill lg:h-[260px] h-[210px] hover:w-[275px] "  />
+      <div className="flex justify-center lg:w-[260px] w-[180px]">
+        <img src={photo} alt="..." className="object-fill lg:h-[260px] h-[160px] "  />
       </div>
       {/* Category */}
       <p className=" bg-lime-300 w-3/6 text-center mt-2 ml-2 px-2.5 py-1 rounded-full text-sm">

@@ -61,7 +61,7 @@ export default function DeletedCard({ name, category, id, brand, img }) {
       <h3 className="font-bold mt-2 text-black ml-3 text-xl">{name}</h3>
       <button
         onClick={handleDelete}
-        className="bg-gray-700 text-white flex justify-center items-center w-full font-bold py-4  mt-3 rounded-t-3xl hover:bg-gray-900 w-5/6 mx-auto transition"
+        className="bg-red-500 text-white flex justify-center items-center w-full font-bold py-4  mt-3 rounded-t-3xl hover:bg-gray-900 w-5/6 mx-auto transition"
       >
         Olib tashlash 🗑️
       </button>

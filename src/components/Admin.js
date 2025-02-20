@@ -151,7 +151,7 @@ export default function PostForm() {
 					<button
 						onClick={() => setIsModalOpen(true)}
 						className="px-4 py-2 mb-4 bg-green-600 text-white rounded hover:bg-green-700">
-						Open Form
+						Mahsulot qo'shish
 					</button>
 				</div>
 			)}

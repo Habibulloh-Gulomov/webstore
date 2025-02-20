@@ -3,6 +3,7 @@
 import Admin from '@/components/Admin'
 import AdminList from '@/components/AdminList'
 import NewCategory from '@/components/NewCategory'
+import Order from '@/components/Order'
 import React from 'react'
 
 const Control = () => {
@@ -10,6 +11,7 @@ const Control = () => {
     <div className='text-black '>
       <Admin/>
       <NewCategory/>
+      <Order/>
       <AdminList/>
     </div>
   )

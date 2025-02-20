@@ -3,14 +3,6 @@ import axios from "axios";
 const AddNewItem = () => {
 	const [error, setError] = useState(null);
 
-	let getToken
-
-  try {
-      getToken = localStorage.getItem("token") || ""
-    } catch (error) {
-      console.log(error);
-  
-    }
     const [username, setLogin] = useState("");
     const [password, setPassword] = useState("");
   const handleLogin = async (e) => {

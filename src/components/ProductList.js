@@ -70,10 +70,10 @@ export default function ProductList({title, category_id}) {
       });
   }, data.length);
 
-
+ 
   return (
    <>
-    <div className="w-full p-5 text-black px-[50px] lg:block md:hidden sm:hidden">
+    <div className="w-full p-5 text-black px-[50px] lg:block hidden">
       <h2 className="font-bold sm:text-xl lg:text-2xl mb-3">{title}</h2>
       <div className="relative flex items-center justify-center"> {/* Relative for positioning arrows */}
         {startIndex > 0 && (
@@ -97,19 +97,7 @@ export default function ProductList({title, category_id}) {
         )}
       </div>
     </div>
-    <div className=' lg:hidden md:block flex flex-wrap justify-center items-center'>
-    {data.map((item, index) => (
-            <ProductCard 
-            key={index} 
-            img={item.postImg}
-            id = {item.postId}
-            name={item.product_name} 
-            category={item.subcategory}
-            price={item.product_cost}
-            brand={item.product_brand}
-          />
-          ))}
-    </div>
+    
    </>
   );
 }

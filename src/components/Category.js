@@ -25,7 +25,7 @@ const Category = () => {
 					key={category.subcategory_id}
 					href={{
 						pathname: '/category',
-						query: { 'category': category.subcategory_id }, // Query parameter
+						query: { 'category': category.subcategory_id, 'title': category.title }, // Query parameter
 					}}
 						className="flex flex-col-reverse text-center sm:text-start sm:flex-row sm:gap-3 bg-gray-100 py-1 px-2 rounded sm:rounded-xl min-w-20 sm:min-w-40 md:min-w-52">
 						<p className="flex-1 mt-1 md:pl-1 h-max text-xs line-clamp-1 break-all sm:text-sm md:text-base font-semibold">{category.title}</p>

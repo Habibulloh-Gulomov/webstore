@@ -6,18 +6,22 @@ import { Suspense } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "@/components/ProductCard";
-import logo from '../../images/logo.svg'
+import logo from '../../../images/logo.svg'
 import Image from "next/image";
 import { addMonths, format } from "date-fns";
 
-
 const page = () => {
 	
+
+
+
 	const [text, setText] = useState(true)
 	const [cost, setCost] = useState(true)
 	let date = !cost ? "6 Default" : "12 Default"
 	const searchParams = useSearchParams();
 	const id = searchParams.get('id');
+	console.log(id);
+	
 	const subcategory = searchParams.get('category');
 	const [data, setData] = useState(null)
   const [error, setError] = useState(false)
@@ -66,11 +70,6 @@ const page = () => {
   // get future date
 	const sixMonthsLater = format(addMonths(new Date(), 6), "yyyy-MM-dd");
 	const twelveMonthsLater = format(addMonths(new Date(), 12), "yyyy-MM-dd");
-	
-	console.log("6 Months Later:", sixMonthsLater);
-	console.log("12 Months Later:", twelveMonthsLater);
-	
-
 	// get and design
 
 	useEffect(() => {
@@ -265,7 +264,7 @@ const page = () => {
 			</div>
 			<div className="p-12">
 				<p className="text-2xl font-semibold  pb-2 text-black  mb-3 transition mr-3">Sizga yoqishi mumkin</p>
-				<div className="m-4  flex flex-wrap gap-3 justify-center items-center">
+			
 				<ul className="flex gap-5 flex-wrap justify-center">
 					{category.map((item, index) => (
 						<ProductCard
@@ -279,7 +278,6 @@ const page = () => {
 						/>
 					))}
 				</ul>
-				</div>
 			</div>
 			<Footer />
 

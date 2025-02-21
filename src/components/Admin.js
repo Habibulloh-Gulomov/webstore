@@ -14,7 +14,6 @@ export default function PostForm() {
       try {
         const response = await axios.get("https://thewebstorenode.uz.thewebstore.uz/subcategory");
         setCategories(response.data);
-        console.log(response);
         
       } catch (error) {
         console.error("Error fetching categories:", error);

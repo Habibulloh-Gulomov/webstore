@@ -38,7 +38,7 @@ const page = ({category_id}) => {
     </div> */}
     <div className=''>
       
-     <div className=' flex lg:gap-4 gap-2 flex-wrap align-center '>
+     <div className=' flex lg:gap-4 gap-2 flex-wrap align-center justify-center'>
     {data?.map((item, index) => (
             <ProductCard 
             key={index} 

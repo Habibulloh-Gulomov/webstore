@@ -35,7 +35,7 @@ const Favorites = () => {
     <>
     <Header/>
     <h2>Yoqtirilganlar</h2>
-    <div className="flex flex-wrap gap-5 mt-[100px] m-5">
+    <div className="flex flex-wrap gap-5 mt-[100px] justify-center">
       {filteredPosts?.length > 0 ? (
         filteredPosts?.map(item => (
           <ProductCard 

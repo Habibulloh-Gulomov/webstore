@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
 const Favorites = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -30,17 +32,28 @@ const Favorites = () => {
   }, [posts]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <>
+    <Header/>
+    <h2>Yoqtirilganlar</h2>
+    <div className="flex flex-wrap gap-5 mt-[100px] m-5">
       {filteredPosts?.length > 0 ? (
-        filteredPosts?.map(post => (
-          <div key={post.postId} className="border p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold">nom</h2>
-          </div>
+        filteredPosts?.map(item => (
+          <ProductCard 
+            key={item.postId} 
+            img={item.postImg}
+            id = {item.postId}
+            name={item.product_name} 
+            category={item.subcategory}
+            price={item.product_cost}
+            brand={item.product_brand}
+          />
         ))
       ) : (
-        <p>No favorites saved.</p>
+        <p className="text-3xl mx-auto text-black my-[130px]">Yoqtirilganlar hali mavjud emas.</p>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 

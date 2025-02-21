@@ -22,6 +22,7 @@ const Category = () => {
 			<div className="flex space-x-4 overflow-x-auto scrollbar-hide">
 				{categories?.map((category) => (
 					<Link
+					key={category.subcategory_id}
 					href={{
 						pathname: '/category',
 						query: { 'category': category.subcategory_id }, // Query parameter

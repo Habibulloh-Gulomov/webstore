@@ -25,8 +25,8 @@ const page = ({category_id}) => {
     <>
     <Header/>
     <Category/>
-    <div className='flex m-4'>
-    <div>
+    <div className=' m-2'>
+    {/* <div>
       <ul>
         <li>hello</li>
         <li>hello</li>
@@ -35,10 +35,10 @@ const page = ({category_id}) => {
         <li>hello</li>
         <li>hello</li>
       </ul>
-    </div>
-    <div className='m-4  flex flex-wrap gap-3 justify-center items-center'>
+    </div> */}
+    <div className=''>
       
-     <div className=' flex gap-5'>
+     <div className=' flex lg:gap-4 gap-2 flex-wrap align-center '>
     {data?.map((item, index) => (
             <ProductCard 
             key={index} 

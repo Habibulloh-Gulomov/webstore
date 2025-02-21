@@ -2,6 +2,7 @@ import Category from "@/components/Category";
 import CategoryList from "@/components/CategoryList";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Favorites from "@/components/LikedProducts";
 import ProductList from "@/components/ProductList"
 import Head from "next/head";
 export default function Home() {

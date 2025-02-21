@@ -6,8 +6,6 @@ import axios from 'axios';
 
 
 export default function ProductList({title, category_id}) {
-  console.log(title);
-  
   
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -63,7 +61,6 @@ export default function ProductList({title, category_id}) {
     axios.get(`https://thewebstorenode.uz.thewebstore.uz/posts?subcategory=${category_id}`)
       .then(response => {
         setData(response.data.data);
-  console.log(response.data);
       })
       .catch(error => {
         setError(error.message);

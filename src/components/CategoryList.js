@@ -5,7 +5,6 @@ import ProductList from "./ProductList";
 import ProductCard from "./ProductCard";
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
-  console.log(categories);
 	
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,7 +25,6 @@ const CategoryList = () => {
     axios.get(`https://thewebstorenode.uz.thewebstore.uz/posts`)
       .then(response => {
         setData2(response.data.data);
-  console.log(response.data);
       })
       .catch(error => {
         setError2(error.message);
@@ -35,7 +33,6 @@ const CategoryList = () => {
   return (
 
     <>
-    <div>
       {categories?.map((e, index)=>(
         <ul>
           <ProductList
@@ -45,11 +42,10 @@ const CategoryList = () => {
           />
         </ul>
       ))}
-    </div>
     <div className='lg:hidden m-4  flex flex-wrap gap-3 justify-center items-center'>
     {data2.map((item, index) => (
             <ProductCard 
-            key={index} 
+            key={item?.postId} 
             img={item.postImg}
             id = {item.postId}
             name={item.product_name} 

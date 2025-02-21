@@ -40,7 +40,7 @@ const page = () => {
 				phone: formData.phone,
 				period: date,
 				products: [{
-					amount: formData.amount,
+					amount: '1',
 					name: data.product_name,
 					imei: "213421341234134",
 					price: data.product_cost,
@@ -125,7 +125,7 @@ const page = () => {
 	return (
 		<div>
 			{isModalOpen && (
-				<div className="fixed inset-0 flex items-center z-20 justify-center bg-gray-800 bg-opacity-50 ">
+				<div className="fixed inset-0 flex items-center z-50 justify-center bg-gray-800 bg-opacity-50 ">
 					<div className="bg-white p-6 rounded-lg shadow-lg relative lg:w-1/3 md:w-full">
 						<button
 							onClick={() => setIsModalOpen(false)}
@@ -174,12 +174,12 @@ const page = () => {
 					{/* Left Section: Images */}
 					<div className="space-y-4">
 						<div className="rounded-lg flex  gap-3">
-							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className=" border w-full hover:shadow-md rounded object-none.69639" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data?.postImg[0]}` : '...'} alt="" className=" border w-full hover:shadow-md rounded object-none.69639" />
 						</div>
 						<div className="flex space-x-2">
-							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[0]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
-							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[1]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
-							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data.postImg[2]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data?.postImg[0]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data?.postImg[1]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
+							<img src={data ? `https://thewebstorenode.uz.thewebstore.uz//view/${data?.postImg[2]}` : '...'} alt="" className="w-24 h-32 border hover:shadow-md rounded object-cover" />
 						</div>
 					</div>
 

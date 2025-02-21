@@ -73,8 +73,9 @@ const Header = () => {
 					value={query}
         onChange={handleInputChange}
 				/>
-				<Image
-					src={Search}
+				<img
+					  src="https://thewebstorenode.uz.thewebstore.uz//view/search.png"
+
 					width={23}
 					height={25}
 					alt="about image "
@@ -83,9 +84,9 @@ const Header = () => {
 			</div>
 			<a
 				className=" p-2 border-l-2 pl-5 "
-				href="/">
-				<Image
-					src={Like}
+				href="/favorite">
+				<img
+				  src="https://thewebstorenode.uz.thewebstore.uz//view/heart.png"
 					width={40}
 					height={40}
 					alt="about image "

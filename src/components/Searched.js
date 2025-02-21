@@ -7,10 +7,7 @@ const Searched = ({id,img, name, price, category}) => {
   
    let photo = `https://thewebstorenode.uz.thewebstore.uz//view/${img[0]}`
   return (
-   <Link href={{
-    pathname: '/product',
-    query: { "id": id, 'category': category }, // Query parameter
-  }} className='bg-gray-100 p-2 rounded-md'>
+   <Link href={`/product/productId?id=${id}&category=${category}`} className='bg-gray-100 p-2 rounded-md'>
     <div className='flex text-start items-center  gap-3'>
       <img src={photo} alt="" className='w-16 sm:w-20 max-h-24 object-cover rounded-lg'/>
       <div className='flex flex-col flex-1 gap-1 text-black'>

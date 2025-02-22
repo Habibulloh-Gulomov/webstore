@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-const Favorites = () => {
+const page = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -57,4 +57,4 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+export default page;

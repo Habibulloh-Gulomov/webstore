@@ -13,7 +13,8 @@ import { addMonths, format } from "date-fns";
 const page = () => {
 	
 
-
+	const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
 	const [text, setText] = useState(true)
 	const [cost, setCost] = useState(true)
@@ -28,10 +29,10 @@ const page = () => {
 	
 	// uzum market ariza
 	const [formData, setFormData] = useState({
-		phone: "",
-		name: '',
-	  loc: '',
-		district: '',
+		name: "",
+    city: "",
+    phone: "",
+    district: "",
 
 	});
 	const handleChange = (e) => {
@@ -67,6 +68,24 @@ const page = () => {
 			console.log(error);
 
 		}
+
+		try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyvoGv0k3qI1PyLf1cQhIc10YsbNI7xeQLEjJt88PltDfdb2t8IwzSBYugs1iEfhA8m/exec', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (result.status === "success") {
+        setSuccess(true);
+        setFormData({ name: "", city: "", phone: "", district: "" }); // Clear form
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
 	};
 
   // get future date
@@ -140,8 +159,8 @@ const page = () => {
 							onSubmit={handleSelfieSubmit}
 							className="space-y-4 text-black" method="POST">
 							<input name="phone" placeholder="Telefon raqami" onChange={handleChange} className="w-full p-2 border rounded" autoComplete="off" />
-							<input name="name" placeholder="Ismingiz" onChange={handleChange} className="w-full p-2 border rounded" type="number" />
-							<select name="loc" id="" onChange={handleChange} className="w-full p-2 border rounded" type="number" >
+							<input name="name" placeholder="Ismingiz" onChange={handleChange} className="w-full p-2 border rounded" type="text" />
+							<select name="city" id="" onChange={handleChange} className="w-full p-2 border rounded" type="number" >
 								<option value="Tashkent">Tashkent</option>
 								<option value="Namangan">Namangan</option>
 								<option value="Jizzax">Jizzax</option>

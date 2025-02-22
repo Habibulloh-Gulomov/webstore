@@ -29,7 +29,9 @@ const page = () => {
 	// uzum market ariza
 	const [formData, setFormData] = useState({
 		phone: "",
-		amount: '',
+		name: '',
+	  loc: '',
+		district: '',
 
 	});
 	const handleChange = (e) => {
@@ -138,7 +140,16 @@ const page = () => {
 							onSubmit={handleSelfieSubmit}
 							className="space-y-4 text-black" method="POST">
 							<input name="phone" placeholder="Telefon raqami" onChange={handleChange} className="w-full p-2 border rounded" autoComplete="off" />
-							<input name="amount" placeholder="Mahsulot soni" onChange={handleChange} className="w-full p-2 border rounded" type="number" />
+							<input name="name" placeholder="Ismingiz" onChange={handleChange} className="w-full p-2 border rounded" type="number" />
+							<select name="loc" id="" onChange={handleChange} className="w-full p-2 border rounded" type="number" >
+								<option value="Tashkent">Tashkent</option>
+								<option value="Namangan">Namangan</option>
+								<option value="Jizzax">Jizzax</option>
+								<option value="Sirdaryo">Sirdaryo</option>
+								<option value="Qo'qon">Qo'qon</option>
+								<option value="Andijon">Andijon</option>
+							</select>
+							<input name="district" placeholder="Tuman" onChange={handleChange} className="w-full p-2 border rounded" type="number" />
 							<div className="flex gap-4">
 								<button
 									onClick={() => setIsModalOpen(!isModalOpen)}
